@@ -19,3 +19,57 @@
 
 /* الشعارات المرفقة وأسعار BiQuote: لا تغيير على المحفظة أو التداول المحلي. */
 .pair-flag:has(img){padding:0;letter-spacing:0;border-radius:8px;background:transparent;overflow:visible}.pair-flag img{object-fit:contain;border-radius:0}.asset-choose{gap:8px;min-height:68px}.asset-identification{display:flex;flex:1;min-width:0;flex-direction:column;align-items:flex-start;text-align:left;direction:ltr;gap:4px}.asset-identification strong{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px}.asset-identification>small{font-size:8px;color:#9296a3;letter-spacing:.25px}.asset-quote{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;min-width:85px;max-width:100px;gap:5px;direction:ltr;text-align:left;font-variant-numeric:tabular-nums}.asset-quote>b{font-size:11px;font-weight:650;white-space:nowrap;color:#f4f5f8}.asset-quote>small{font-size:7px;line-height:1.3;direction:rtl;color:#8b929f;white-space:nowrap}.asset-quote.quote--live>small{color:#62c6a0}.asset-quote.quote--closed>small,.asset-quote.quote--stale>small{color:#c5a767}.asset-quote.quote--unavailable>small,.asset-quote.quote--error>small{color:#b88181}.asset-profit{margin:0;padding:0 3px;min-width:30px;font-size:10px}.asset-entry .pair-flag{width:36px;height:36px}.asset-entry{padding:0 10px}.asset-entry .favorite{padding-left:0;padding-right:5px}.asset-entry .favorite svg{width:15px;height:15px}@media(max-width:370px){.asset-quote{min-width:73px;max-width:85px}.asset-quote>b{font-size:10px}.asset-quote>small{font-size:6px}.asset-entry .pair-flag{width:31px;height:31px}.asset-identification strong{font-size:11px}.asset-choose{gap:6px}.asset-profit{font-size:9px;min-width:26px}}
+
+/* TRD GLASS SYSTEM — consistent translucent glass across every section */
+:root{
+ --glass-bg:rgba(34,38,52,.62);--glass-bg-strong:rgba(27,30,42,.78);
+ --glass-border:rgba(225,235,255,.13);--glass-highlight:rgba(255,255,255,.10);
+ --glass-shadow:0 12px 34px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.09);
+}
+body{background:radial-gradient(ellipse at 15% 0%,rgba(56,103,165,.13),transparent 42%),radial-gradient(ellipse at 90% 25%,rgba(112,72,180,.09),transparent 38%),#10131c}
+.device-shell{background:linear-gradient(145deg,rgba(26,31,44,.96),rgba(15,18,27,.97))}
+.account-header,.trade-toolbar,.trade-controls{background:transparent}
+.account-modes,.pair-select,.circle,.amount-step,.step-circle,.duration-pill,
+.card,.number-pad button,.asset-entry,.account-modes button,.drawing-label,
+.open-position,.feed-status,.toast,.primary,.secondary,.field,input,select,
+.sheet-title,.reward-card,.battle-card,.inventory-card,.achievement-card,
+[class*="-card"],[class*="-panel"],[class*="-item"],[class*="-tile"]{
+ backdrop-filter:blur(18px) saturate(135%);-webkit-backdrop-filter:blur(18px) saturate(135%);
+}
+.account-modes,.pair-select,.circle,.amount-step,.step-circle,.duration-pill,.card,
+.number-pad button,.asset-entry,.drawing-label,.open-position,.toast,.field,input,select{
+ background:linear-gradient(145deg,rgba(255,255,255,.095),rgba(255,255,255,.035));
+ border:1px solid var(--glass-border);box-shadow:var(--glass-shadow)
+}
+.account-modes button{background:transparent;border:1px solid transparent}
+.account-modes .selected-real{background:rgba(0,190,133,.72);border-color:rgba(120,255,210,.35)}
+.account-modes .selected-demo{background:rgba(67,105,253,.72);border-color:rgba(150,175,255,.4)}
+.bottom-nav{background:rgba(15,19,29,.72);border:1px solid rgba(220,232,255,.12);border-bottom:0;box-shadow:0 -10px 35px rgba(0,0,0,.2);backdrop-filter:blur(26px) saturate(150%);-webkit-backdrop-filter:blur(26px) saturate(150%)}
+.modal-layer{isolation:isolate}.backdrop{background:rgba(4,7,14,.54);backdrop-filter:blur(9px) saturate(115%);-webkit-backdrop-filter:blur(9px) saturate(115%)}
+.bottom-sheet,.bottom-sheet.sheet--insufficient,.bottom-sheet.sheet--chart-style,
+.account-page--account .bottom-sheet.account-sheet{
+ background:linear-gradient(155deg,rgba(39,45,62,.88),rgba(22,26,38,.91) 55%,rgba(29,31,43,.88));
+ border:1px solid rgba(226,237,255,.16);border-bottom:0;
+ box-shadow:0 -18px 55px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.10);
+ backdrop-filter:blur(28px) saturate(145%);-webkit-backdrop-filter:blur(28px) saturate(145%);
+}
+.sheet-drag-zone{background:rgba(35,40,55,.65);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.sheet-handle{background:rgba(220,229,247,.48)}
+.primary{background:linear-gradient(135deg,rgba(255,255,255,.92),rgba(220,230,248,.78));color:#171b25;border:1px solid rgba(255,255,255,.42);box-shadow:0 8px 22px rgba(0,0,0,.16),inset 0 1px 0 #fff9}
+.secondary{background:linear-gradient(135deg,rgba(255,255,255,.11),rgba(255,255,255,.045));color:#f0f3fb;border:1px solid rgba(255,255,255,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.07)}
+.direction-buttons .up{background:linear-gradient(135deg,rgba(0,207,143,.95),rgba(0,139,112,.82));border:1px solid rgba(138,255,218,.32);box-shadow:0 8px 24px rgba(0,195,132,.16),inset 0 1px 0 #ffffff40}
+.direction-buttons .down{background:linear-gradient(135deg,rgba(239,85,92,.95),rgba(174,51,70,.86));border:1px solid rgba(255,170,177,.28);box-shadow:0 8px 24px rgba(230,65,75,.14),inset 0 1px 0 #ffffff35}
+input,select,.field{background:rgba(255,255,255,.065);border-color:rgba(225,235,255,.16);box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.number-pad button{background:rgba(255,255,255,.07)}
+.toast{background:rgba(35,42,58,.86);border-color:rgba(230,238,255,.18)}
+.asset-entry{background:rgba(255,255,255,.035);border-color:rgba(225,235,255,.08)}
+.bottom-nav button.active{color:#fff;text-shadow:0 0 16px rgba(160,200,255,.24)}
+/* Universal glass for custom section components, without flattening charts/media. */
+.modal-layer .card,.bottom-sheet [class*="card"],.bottom-sheet [class*="panel"],
+.bottom-sheet [class*="tile"],.bottom-sheet [class*="item-card"],
+.bottom-sheet [class*="reward"],.bottom-sheet [class*="battle"],
+.bottom-sheet [class*="inventory"],.bottom-sheet [class*="achievement"]{
+ background-color:rgba(255,255,255,.055);border-color:rgba(225,235,255,.12);
+ box-shadow:0 8px 25px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.055);
+}
+@media(prefers-reduced-motion:no-preference){.card,.bottom-sheet [class*="card"],.bottom-sheet [class*="tile"],.bottom-sheet [class*="item"]{transition:background .22s ease,border-color .22s ease,transform .22s ease}.card:active{border-color:rgba(160,205,255,.24)}}
