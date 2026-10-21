@@ -1,0 +1,187 @@
+/* TRD — consistent light glass system across every screen and modal.
+   Deliberately changes paint only; preserves component geometry and interactions. */
+:root {
+  --glass-bg: rgba(32, 36, 48, .62);
+  --glass-bg-soft: rgba(255, 255, 255, .055);
+  --glass-bg-strong: rgba(25, 29, 40, .78);
+  --glass-border: rgba(220, 231, 255, .13);
+  --glass-border-hi: rgba(220, 231, 255, .22);
+  --glass-shadow: 0 12px 32px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.065);
+  --glass-blur: 16px;
+}
+html { background: #0b0e16; }
+body, #root, .device-shell {
+  background: radial-gradient(ellipse at 50% -15%, rgba(66, 100, 160, .13), transparent 48%), #0b0e16;
+}
+/* Common surfaces used by trade, profile, settings, achievements, inventory and battles. */
+.account-header,
+.account-modes,
+.circle,
+.pair-select,
+.amount-step,
+.step-circle,
+.duration-pill,
+.bottom-nav,
+.bottom-sheet,
+.account-sheet,
+.rewards-sheet,
+.rewards-modal-card,
+.rewards-active-battle,
+.rewards-reward-box,
+.rewards-detail-card,
+.rewards-achievement-summary,
+.rewards-achievement-card,
+.rewards-nested-panel,
+.rewards-featured,
+.rewards-inventory-item,
+.rewards-open-battle,
+.rewards-data-list,
+.rewards-data-row,
+.rewards-available,
+.rewards-battle-card,
+.rewards-card-original-art,
+.ac-card,
+.ac-balance-card,
+.ac-mode-card,
+.ac-profile-hero,
+.ac-profile-row,
+.ac-settings,
+.ac-bonus-row,
+.ac-wallet-shortcuts,
+.ac-inline-modal,
+.chart-settings,
+.chart-settings__header,
+.chart-settings__section-title,
+.chart-settings__field,
+.chart-settings__row,
+.chart-settings__indicator,
+.chart-settings__style,
+.chart-settings__types,
+.chart-settings__chips,
+.recent-trade-card,
+.recent-trade-row,
+.result-card,
+.asset-results,
+.asset-entry,
+.asset-picker__row,
+.asset-picker__search-wrap,
+.asset-picker__tabs,
+.asset-picker__list,
+.search-line,
+.position-row,
+.number-pad button,
+.duration-presets button,
+.drawing-label,
+.open-position {
+  background-color: var(--glass-bg) !important;
+  background-image: linear-gradient(135deg, rgba(255,255,255,.075), rgba(255,255,255,.018) 48%, rgba(120,160,230,.025)) !important;
+  border: 1px solid var(--glass-border) !important;
+  box-shadow: var(--glass-shadow) !important;
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(135%);
+  backdrop-filter: blur(var(--glass-blur)) saturate(135%);
+}
+/* Surfaces nested inside cards get a lighter glass layer rather than opaque grey. */
+.rewards-inventory-grid > *,
+.rewards-achievement-grid > *,
+.rewards-open-battles > *,
+.rewards-card-actions,
+.rewards-action-row,
+.rewards-tabs,
+.rewards-battles-header,
+.rewards-section-title,
+.ac-profile-actions,
+.ac-money-grid > *,
+.ac-vip-tabs,
+.ac-profile-actions button,
+.chart-settings__actions,
+.chart-settings__toggle-group,
+.chart-settings__swatches,
+.chart-settings__alligator-row,
+.asset-picker__choose,
+.asset-picker__favorite,
+.asset-picker__search,
+.asset-picker__stock-heading {
+  background-color: rgba(255,255,255,.045) !important;
+  border-color: rgba(220,231,255,.10) !important;
+}
+/* Buttons and pills remain visibly interactive without losing their accent colors. */
+button, input, select, textarea {
+  -webkit-backdrop-filter: blur(10px) saturate(125%);
+  backdrop-filter: blur(10px) saturate(125%);
+}
+.account-header .deposit-pill,
+.direction-buttons .up,
+.rewards-primary,
+.rewards-card-cta,
+.chart-settings__primary,
+.ac-profile-actions .primary,
+.primary {
+  border: 1px solid rgba(255,255,255,.22) !important;
+  box-shadow: 0 8px 22px rgba(0,0,0,.16), inset 0 1px 0 rgba(255,255,255,.22) !important;
+}
+input, select, textarea,
+.amount-value,
+.search-line input,
+.asset-picker__search input {
+  background-color: rgba(12,16,25,.42) !important;
+  border-color: var(--glass-border) !important;
+}
+/* Sheets: retain their original sizing/scroll rules; only unify the glass finish. */
+.bottom-sheet,
+.bottom-sheet.account-sheet,
+.bottom-sheet.sheet--account,
+.bottom-sheet.sheet--achievements,
+.bottom-sheet.sheet--battles,
+.bottom-sheet.sheet--chart-style,
+.sheet--insufficient,
+.rewards-sheet {
+  background: linear-gradient(155deg, rgba(35,41,56,.88), rgba(20,24,34,.90)) !important;
+  border: 1px solid var(--glass-border-hi) !important;
+  border-bottom-color: rgba(220,231,255,.08) !important;
+  box-shadow: 0 -16px 50px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.08) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(145%);
+  backdrop-filter: blur(22px) saturate(145%);
+}
+.sheet-drag-zone,
+.rewards-sheet-header {
+  background: linear-gradient(90deg, rgba(255,255,255,.025), rgba(255,255,255,.07), rgba(255,255,255,.025)) !important;
+}
+/* Bottom navigation is glass, but remains readable above the device safe area. */
+.bottom-nav {
+  background: rgba(12,16,25,.78) !important;
+  border: 1px solid rgba(220,231,255,.13) !important;
+  box-shadow: 0 -8px 28px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.07) !important;
+}
+/* Correct common mobile overflow without changing the component layout. */
+.modal-layer { min-width: 0; }
+.bottom-sheet, .account-sheet, .rewards-sheet { min-width: 0; overflow-x: clip; }
+.rewards-battle-carousel, .rewards-inventory-grid, .rewards-achievement-grid,
+.asset-results, .asset-picker__list, .chart-settings__body { min-width: 0; }
+.rewards-battle-carousel, .asset-results, .asset-picker__list, .chart-settings__body {
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+/* Prevent nested glass surfaces from looking like heavy solid blocks. */
+.rewards-battle-card,
+.rewards-achievement-card,
+.rewards-inventory-item,
+.rewards-open-battle,
+.ac-card,
+.ac-profile-row,
+.chart-settings__row,
+.asset-entry,
+.recent-trade-row {
+  background-color: rgba(255,255,255,.045) !important;
+}
+@media (max-width: 430px) {
+  .device-shell { overflow-x: clip; }
+  .bottom-sheet, .account-sheet, .rewards-sheet { max-width: 100vw; }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .bottom-sheet, .account-sheet, .rewards-sheet, .bottom-nav,
+  .ac-card, .rewards-achievement-card, .rewards-inventory-item {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background-color: rgba(24,28,39,.96) !important;
+  }
+}
