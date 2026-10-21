@@ -19,36 +19,3 @@
 
 /* الشعارات المرفقة وأسعار BiQuote: لا تغيير على المحفظة أو التداول المحلي. */
 .pair-flag:has(img){padding:0;letter-spacing:0;border-radius:8px;background:transparent;overflow:visible}.pair-flag img{object-fit:contain;border-radius:0}.asset-choose{gap:8px;min-height:68px}.asset-identification{display:flex;flex:1;min-width:0;flex-direction:column;align-items:flex-start;text-align:left;direction:ltr;gap:4px}.asset-identification strong{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px}.asset-identification>small{font-size:8px;color:#9296a3;letter-spacing:.25px}.asset-quote{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;min-width:85px;max-width:100px;gap:5px;direction:ltr;text-align:left;font-variant-numeric:tabular-nums}.asset-quote>b{font-size:11px;font-weight:650;white-space:nowrap;color:#f4f5f8}.asset-quote>small{font-size:7px;line-height:1.3;direction:rtl;color:#8b929f;white-space:nowrap}.asset-quote.quote--live>small{color:#62c6a0}.asset-quote.quote--closed>small,.asset-quote.quote--stale>small{color:#c5a767}.asset-quote.quote--unavailable>small,.asset-quote.quote--error>small{color:#b88181}.asset-profit{margin:0;padding:0 3px;min-width:30px;font-size:10px}.asset-entry .pair-flag{width:36px;height:36px}.asset-entry{padding:0 10px}.asset-entry .favorite{padding-left:0;padding-right:5px}.asset-entry .favorite svg{width:15px;height:15px}@media(max-width:370px){.asset-quote{min-width:73px;max-width:85px}.asset-quote>b{font-size:10px}.asset-quote>small{font-size:6px}.asset-entry .pair-flag{width:31px;height:31px}.asset-identification strong{font-size:11px}.asset-choose{gap:6px}.asset-profit{font-size:9px;min-width:26px}}
-
-/* TRD Glass UI refresh — subtle, consistent glass across the existing app */
-:root{--surface:rgba(29,32,42,.68);--muted:#9ba6b8;--glass-line:rgba(255,255,255,.085);--glass-fill:rgba(255,255,255,.045);--glass-blur: blur(18px) saturate(135%)}
-body{background:radial-gradient(ellipse at 50% -12%,rgba(52,94,126,.2),transparent 48%),#0b0e15}
-.device-shell{background:linear-gradient(160deg,rgba(19,24,35,.97),rgba(10,13,20,.99));box-shadow:inset 0 0 0 1px rgba(255,255,255,.025)}
-.account-header{background:rgba(17,21,31,.72);border-bottom-color:var(--glass-line);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur)}
-.account-modes,.pair-select,.circle,.amount-step,.duration-pill,.card,.secondary,.number-pad button,.asset-results,.asset-entry,.duration-presets button,.chart-settings__type,.chart-settings__indicator,.chart-settings__tabs,.chart-settings__alligator-row,.chart-settings__row,.chart-settings__field input[type=number],.chart-settings__alligator-row input[type=number],.chart-settings__chips button{background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.025));border:1px solid var(--glass-line);box-shadow:inset 0 1px 0 rgba(255,255,255,.045)}
-.circle{box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 5px 18px rgba(0,0,0,.12)}
-.pair-select{border-radius:18px;backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur)}
-.chart{border-radius:18px;background:linear-gradient(180deg,rgba(255,255,255,.018),transparent 65%)}
-.trade-controls{background:linear-gradient(180deg,rgba(255,255,255,0),rgba(255,255,255,.018));border-radius:22px 22px 0 0}
-.amount-step{box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
-.step-circle{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.08)}
-.direction-buttons .up{background:linear-gradient(135deg,#18d69a,#079d77);box-shadow:0 7px 22px rgba(0,190,130,.16),inset 0 1px 0 rgba(255,255,255,.22)}
-.direction-buttons .down{background:linear-gradient(135deg,#ff716f,#d93e4d);box-shadow:0 7px 22px rgba(220,60,80,.14),inset 0 1px 0 rgba(255,255,255,.2)}
-.bottom-nav{background:rgba(15,19,29,.78);border:1px solid rgba(255,255,255,.075);border-bottom:0;box-shadow:0 -8px 32px rgba(0,0,0,.15);backdrop-filter:blur(24px) saturate(145%);-webkit-backdrop-filter:blur(24px) saturate(145%)}
-.bottom-nav button{transition:color .22s ease,transform .22s ease}
-.bottom-nav button.active{color:#f4f8ff}.bottom-nav button.active svg{color:#7ddfc4;filter:drop-shadow(0 0 7px rgba(80,220,180,.22))}
-.bottom-sheet{background:linear-gradient(160deg,rgba(29,34,47,.97),rgba(15,19,29,.985) 72%);border-color:rgba(255,255,255,.1);box-shadow:0 -16px 55px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.06);backdrop-filter:blur(26px) saturate(140%);-webkit-backdrop-filter:blur(26px) saturate(140%)}
-.sheet-drag-zone{background:rgba(29,34,47,.86);backdrop-filter:blur(12px)}
-.sheet-handle{background:rgba(220,230,245,.38)}
-.primary{background:linear-gradient(135deg,#f8fbff,#dfe9f5);color:#101722;box-shadow:0 5px 18px rgba(0,0,0,.14),inset 0 1px 0 white}
-.secondary{color:#e1e8f4}
-.field,input,select{background:rgba(255,255,255,.055);border-color:rgba(255,255,255,.11);border-radius:11px}
-.field:focus,input:focus,select:focus{border-color:rgba(113,205,226,.55);box-shadow:0 0 0 3px rgba(80,180,210,.09)}
-.asset-results{background:rgba(255,255,255,.035);overflow:hidden}.asset-entry{border-bottom-color:rgba(255,255,255,.065);background:transparent}
-.position-row{border-bottom-color:rgba(255,255,255,.075)}
-.toast{background:rgba(31,38,52,.94);border-color:rgba(255,255,255,.13);box-shadow:0 12px 36px rgba(0,0,0,.32);backdrop-filter:blur(18px)}
-.feed-status,.drawing-label,.open-position{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-.chart-settings__type.is-selected,.chart-settings__indicator-list>div.chart-settings__indicator{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.12)}
-button{transition:transform .18s cubic-bezier(.2,.8,.2,1),filter .18s ease,background .22s ease,border-color .22s ease}
-@media(min-width:600px){body{background:radial-gradient(ellipse at 50% 0,rgba(47,87,121,.24),transparent 50%),#080b12}.device-shell{border-radius:28px;overflow:hidden;margin:18px auto;min-height:calc(100dvh - 36px);box-shadow:0 0 0 1px rgba(255,255,255,.08),0 28px 90px rgba(0,0,0,.48)}.bottom-nav{bottom:18px;border-radius:22px}}
-@media(prefers-reduced-motion:reduce){button,.bottom-nav button{transition:none}}
