@@ -1,0 +1,10 @@
+import {buildSync} from 'esbuild';
+import {execFileSync} from 'node:child_process';
+import {readFileSync,writeFileSync} from 'node:fs';
+import {createHash} from 'node:crypto';
+buildSync({entryPoints:['src/App.jsx'],bundle:true,minify:true,outfile:'public/app.js',loader:{'.jsx':'jsx'},define:{'process.env.NODE_ENV':'"production"'}});
+execFileSync('npx',['tailwindcss','-i','./src/tailwind.css','-o','./public/utilities.css','--content','./src/**/*.{js,jsx}','--minify'],{stdio:'inherit'});
+const revision=createHash('sha256').update(readFileSync('public/app.js')).update(readFileSync('public/app.css')).digest('hex').slice(0,12);
+const html=readFileSync('public/index.html','utf8').replace(/(src|href)="\/(app\.(?:js|css))(?:\?[^\"]*)?"/g,(_,attribute,file)=>`${attribute}="/${file}?v=${revision}"`);
+writeFileSync('public/index.html',html);
+console.log('اكتمل التجميع، إصدار الواجهة: '+revision);

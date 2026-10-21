@@ -1,0 +1,33 @@
+‎/* حركات الصفقة والمخزون: تعتمد على transform وopacity فقط حتى تبقى سلسة. */
+
+‎/* إشعار نتيجة الصفقة فوق الرسم البياني */
+.trade-pops{position:absolute;top:10px;left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none;z-index:8}
+.trade-pop{padding:10px 22px;border-radius:26px;color:#fff;font-weight:700;font-size:16px;white-space:nowrap;box-shadow:0 12px 30px var(--glow,#0006);animation:tradePop 2.8s cubic-bezier(.2,1.1,.3,1) both}
+.trade-pop.win{background:linear-gradient(135deg,#3fae5f,#2c8a49);--glow:#3fae5f80}
+.trade-pop.loss{background:linear-gradient(135deg,#d65a49,#a63a2c);--glow:#d65a4980}
+.trade-pop.tie{background:linear-gradient(135deg,#4a4b55,#34353d);--glow:#0008}
+@keyframes tradePop{0%{opacity:0;transform:translateY(-22px) scale(.8)}12%{opacity:1;transform:none}85%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-10px) scale(.96)}}
+
+‎/* أزرار أعلى/أسفل: توهج خفيف وضغط ناعم */
+.trade-controls .direction-buttons .up{box-shadow:0 8px 22px #00c47345,inset 0 1px 1px #fff1}
+.trade-controls .direction-buttons .down{box-shadow:0 8px 22px #e3453640,inset 0 1px 1px #fff1}
+
+‎/* المخزون: العنصر المحدد يرتفع ويتوهج، وبطاقة التفاصيل تدخل بحركة عند كل اختيار */
+.rewards-inventory-item{transition:transform .28s cubic-bezier(.2,1.2,.3,1),box-shadow .3s,border-color .3s}
+.rewards-inventory-item.is-selected{box-shadow:0 0 0 2px #5aa0ff,0 0 22px #5aa0ff66;transform:translateY(-2px)}
+.rewards-inventory-item .rewards-item-icon{transition:transform .3s cubic-bezier(.2,1.2,.3,1)}
+.rewards-inventory-item.is-selected .rewards-item-icon{transform:scale(1.07)}
+.rewards-detail-card .rewards-detail-icon{animation:invIconIn .45s cubic-bezier(.2,1.2,.3,1) both}
+@keyframes invIconIn{from{opacity:0;transform:scale(.6) rotate(-12deg)}to{opacity:1;transform:none}}
+‎/* اسم الحركة يختلف مع كل عنصر حتى تُعاد عند تغيير الاختيار */
+.detail--shield{animation:invCardA .4s cubic-bezier(.2,.9,.25,1) both}
+.detail--star{animation:invCardB .4s cubic-bezier(.2,.9,.25,1) both}
+.detail--lightning{animation:invCardC .4s cubic-bezier(.2,.9,.25,1) both}
+.detail--trophy{animation:invCardD .4s cubic-bezier(.2,.9,.25,1) both}
+.detail--ticket{animation:invCardE .4s cubic-bezier(.2,.9,.25,1) both}
+@keyframes invCardA{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes invCardB{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes invCardC{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes invCardD{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes invCardE{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.rewards-action-row .rewards-primary{transition:transform .13s,filter .13s,opacity .2s}

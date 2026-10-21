@@ -1,0 +1,8 @@
+‎/* شكل المخزون: بلاطات بأيقونات متدرجة + قفل دائري */
+.rewards .rewards-inventory-item{position:relative;aspect-ratio:1;border-radius:20px;background:#2f3037;border:2px solid transparent;display:flex;align-items:center;justify-content:center;padding:0;cursor:pointer;transition:transform .28s cubic-bezier(.2,1.2,.3,1),box-shadow .3s,border-color .3s;-webkit-tap-highlight-color:transparent}
+.rewards .rewards-inventory-item:active{transform:scale(.95)}
+.rewards .rewards-inventory-item.is-selected{border-color:#5aa0ff;box-shadow:0 0 22px #5aa0ff66;transform:translateY(-2px)}
+.rewards .rewards-inventory-item .inv-ico{width:58%;aspect-ratio:1;height:auto;border-radius:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 14px #0006;transition:transform .3s cubic-bezier(.2,1.2,.3,1)}
+.rewards .rewards-inventory-item.is-selected .inv-ico{transform:scale(1.07)}
+.rewards .rewards-inventory-item .rewards-item-lock{position:absolute;top:8px;right:8px;left:auto;box-sizing:border-box;width:24px;height:24px;padding:6px;border-radius:50%;background:#111218;color:#c3c4cd;stroke-width:2.6}
+.rewards .rewards-detail-card .inv-ico-big{width:54px;height:54px;border-radius:16px;display:flex;align-items:center;justify-content:center;flex:none;box-shadow:0 6px 16px #0006}
