@@ -32,7 +32,6 @@ import RecentTrades from './RecentTrades';
 import AssetPicker, { REFERENCE_ASSETS } from './AssetPicker';
 import './assetpicker.css';
 import './style.css';
-import './glass-universal.css';
 import {
   reconcileDeposits,
   decideLocalRequest,
