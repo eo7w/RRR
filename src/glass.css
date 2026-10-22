@@ -150,3 +150,10 @@ html,body{background:#070914;overflow-x:clip}
 .device-shell .cash-stack-image{mix-blend-mode:normal;-webkit-mask-image:radial-gradient(ellipse 62% 62% at 50% 50%,#000 58%,transparent 100%);mask-image:radial-gradient(ellipse 62% 62% at 50% 50%,#000 58%,transparent 100%)}
 .device-shell .chart-settings__indicator{border-radius:15px!important;margin-bottom:7px;overflow:hidden}
 .device-shell .chart-settings__indicator:hover{background:var(--g-fill-2)!important}
+
+/* قسم الموافقة في الإعدادات */
+.device-shell .ac-settings small{display:inline-flex;align-items:center;gap:8px}
+.device-shell .ac-badge{font-style:normal;min-width:21px;height:21px;padding:0 6px;border-radius:11px;display:inline-grid;place-items:center;font-size:11px;font-weight:700;color:#fff;background:linear-gradient(180deg,#ff7a6b,#e0453a);box-shadow:0 0 12px rgba(238,90,77,.5)}
+.device-shell .ac-approval-row{border-color:rgba(140,170,255,.28)!important}
+
+.device-shell .ac-inline-modal{background:linear-gradient(180deg,rgba(44,48,76,.9),rgba(22,24,42,.94))!important;backdrop-filter:blur(28px) saturate(165%);-webkit-backdrop-filter:blur(28px) saturate(165%);border:1px solid var(--g-edge)!important;box-shadow:0 -20px 60px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.1)!important}

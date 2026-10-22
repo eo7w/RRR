@@ -387,7 +387,6 @@ function App() {
     const old = load('cue-local-requests', []);
     localStorage.setItem('cue-local-requests', JSON.stringify([entry, ...old]));
     setRequest(entry);
-    notify('تم إرسال الطلب بنجاح');
   };
 
   const sheetTitles = {
