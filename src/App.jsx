@@ -27,6 +27,7 @@ import { useAssetQuotes, formatAssetPrice, quoteStatusText } from './assetQuotes
 import Chart from './Chart';
 import Rewards from './Rewards';
 import Account from './Account';
+import {readActive, readTierIndex, TIERS} from './Store';
 import ChartSettings from './ChartSettings';
 import RecentTrades from './RecentTrades';
 import AssetPicker, { REFERENCE_ASSETS } from './AssetPicker';
@@ -150,11 +151,19 @@ function App() {
       'news',
       'vip',
       'approval',
+      'store',
       'verification',
       'logout'
     ].includes(p) ? p : null;
   });
 
+  const [boost, setBoost] = useState(() => readActive());
+  useEffect(() => {
+    const f = () => setBoost(readActive());
+    window.addEventListener('cue-store-change', f);
+    return () => window.removeEventListener('cue-store-change', f);
+  }, []);
+  const tierProfit = TIERS[readTierIndex()].profit;
   const [mode, setMode] = useState('real');
   const [balance, setBalance] = useState(() => load('cue-demo-balance', 10000));
   const [simulationWallet, setSimulationWallet] = useState(() => reconcileDeposits().wallet);
@@ -223,6 +232,12 @@ function App() {
     setSimulationWallet(result.wallet);
     if (result.changed && result.creditedCents > 0) setMode('real');
     return result;
+  };
+
+  const onBuy = card => {
+    const r = debitSimulation(card.price, 'store-' + card.id + '-' + Date.now());
+    if (r.ok) setSimulationWallet(r.wallet);
+    return r;
   };
 
   const notify = text => {
@@ -322,7 +337,8 @@ function App() {
       entry: market.price,
       end: Date.now() + duration * 1000,
       start: Date.now(),
-      payout: asset.payout,
+      payout: asset.payout + tierProfit + (boost?.boost || 0),
+      boostCard: boost?.uid || null,
       status: 'open',
       source: market.status,
       accountMode: mode,
@@ -331,7 +347,15 @@ function App() {
       debitBonusCents: debit.bonusCents
     };
     commitTrades([t, ...tradesRef.current]);
-    notify('فُتحت الصفقة بنجاح');
+    if (boost) {
+      try {
+        const cards = JSON.parse(localStorage.getItem('cue-store-cards') || '[]').map(c => (c.uid === boost.uid ? { ...c, used: true } : c));
+        localStorage.setItem('cue-store-cards', JSON.stringify(cards));
+        localStorage.removeItem('cue-store-active');
+      } catch {}
+      setBoost(null);
+    }
+    notify(boost ? 'فُتحت الصفقة — طُبّق تعزيز البطاقة +' + boost.boost + '%' : 'فُتحت الصفقة بنجاح');
   };
 
   useEffect(() => {
@@ -559,7 +583,8 @@ function App() {
             </button>
           </div>
           <p className="payout-note">
-            اربح الصفقة واحصل على <b>ربح {asset.payout}% · {money(amount * (1 + asset.payout / 100))}</b>
+            اربح الصفقة واحصل على <b>ربح {asset.payout + tierProfit + (boost?.boost || 0)}% · {money(amount * (1 + (asset.payout + tierProfit + (boost?.boost || 0)) / 100))}</b>
+            {boost && <span className="boost-chip">بطاقة +{boost.boost}%</span>}
           </p>
         </section>
       </main>
@@ -638,6 +663,7 @@ function App() {
                   bonusBalance={simulationWallet.bonusCents / 100}
                   onRequest={onRequest}
                   onDecision={onDecision}
+                  onBuy={onBuy}
                 />
               ) : null}
 
