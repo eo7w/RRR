@@ -177,3 +177,41 @@ button[class*="down"],button[class*="lower"],button[class*="put"],button[class*=
 .open-position,.drawing-label{background:#fff!important;color:#7b632e!important;border-color:#e1d4b7!important}
 hr,.divider,.position-row,.ac-balances p{border-color:#e5ebf4!important}
 @media(min-width:600px){body{background:radial-gradient(ellipse at 0% 8%,rgba(249,215,230,.38),transparent 32%),radial-gradient(ellipse at 100% 28%,rgba(196,222,255,.45),transparent 35%),#edf2f9!important}.device-shell{background:#f4f7fc!important}}
+
+/* Final glass finish: applied to the actual source bundle, not a mockup. */
+:root{--glass-bg:rgba(255,255,255,.70);--glass-edge:rgba(255,255,255,.96);--glass-shadow:0 9px 26px rgba(62,91,137,.10),inset 0 1px 0 rgba(255,255,255,.95)}
+html,body,#root{min-height:100%;background:radial-gradient(ellipse at 8% 0%,rgba(247,211,229,.42),transparent 38%),radial-gradient(ellipse at 95% 18%,rgba(195,220,255,.48),transparent 40%),#f2f6fc!important}
+.device-shell,.trading-app{background:transparent!important}
+.account-header,.trade-toolbar .pair-select,.amount-content,.duration-content,.chart,.bottom-nav,.bottom-sheet,.account-sheet,.rewards-sheet,.sheet--assets,.sheet--amount,.sheet--duration,.sheet--chart-style,.sheet--alligator,.sheet--insufficient,.account-ui,.chart-settings,.asset-picker,.recent-trades-card,.ac-card,.ac-balance-card,.ac-mode-card,.ac-request,.ac-profile-hero,.ac-vip-detail,.ac-vip-strip,.ac-fee-box,.ac-approval,.ac-inline-modal,.ac-settings,.ac-news,.ac-history,.rewards-card,.rewards-battle-card,.rewards-open-battle,.rewards-detail-card,.rewards-inventory-item,.achievement-card,.analytics-grid{
+ background:rgba(255,255,255,.72)!important;border:1px solid rgba(255,255,255,.96)!important;box-shadow:var(--glass-shadow),0 0 0 1px rgba(210,224,243,.55)!important;backdrop-filter:blur(22px) saturate(145%)!important;-webkit-backdrop-filter:blur(22px) saturate(145%)!important;color:#17243b!important
+}
+.account-header{border-radius:32px!important}
+.trade-toolbar .pair-select{border-radius:28px!important;min-height:54px!important}
+.trade-toolbar .pair-select strong,.balance-display strong,.amount-value,.amount-big,.amount-content strong,.duration-content strong,.account-header strong,.account-modes button,.sheet h1,.sheet h2,.sheet h3,.bottom-sheet h1,.bottom-sheet h2,.bottom-sheet h3,.ac-head h1,.ac-total strong,.ac-balances h3,.ac-form h3,.ac-section-heading,.ac-profile-row strong,.ac-request strong,.ac-money-page h2,.ac-vip-detail h2,.ac-identity strong{color:#17243b!important}
+.trade-toolbar .pair-select,.amount-content,.duration-content,.duration-pill,.deposit-pill,.account-modes,.amount-step,.step-circle,.circle,.trade-toolbar .circle,.ac-circle,.ac-top-icons button,.chart-settings button,.asset-picker__tabs button,.duration-presets button,.number-pad button,.secondary,.icon-button,.round-button,.ac-modal-close{
+ border:1px solid rgba(255,255,255,.98)!important;border-radius:20px!important;background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(231,239,250,.84))!important;box-shadow:5px 6px 15px rgba(52,80,122,.10),-3px -3px 9px rgba(255,255,255,.92),inset 0 1px 0 #fff!important;color:#31445f!important
+}
+.trade-toolbar .pair-select{border-radius:30px!important}
+.trade-toolbar .circle,.ac-top-icons button,.round-button,.icon-button{border-radius:50%!important}
+.chart{border-radius:26px!important;overflow:hidden!important;padding:0!important;background:linear-gradient(145deg,#fbfdff,#edf3fb)!important;box-shadow:0 12px 30px rgba(61,88,132,.10),inset 0 1px 0 #fff!important}
+.chart canvas{background:transparent!important;border:0!important;border-radius:25px!important;box-shadow:none!important}
+.feed-status{background:rgba(255,255,255,.78)!important;border:1px solid rgba(255,255,255,.9)!important;border-radius:18px!important;color:#6d819e!important;backdrop-filter:blur(12px)!important}
+.amount-content,.duration-content{border-radius:26px!important;padding:12px!important}
+.amount-content .number-pad button{border-radius:15px!important;background:rgba(255,255,255,.78)!important;color:#243650!important}
+.direction-buttons>.up,.trade-up,.action-up,button[class*="higher"],button[class*="buy"],button[class*="call"]{border-radius:28px!important;background:linear-gradient(180deg,#29d3a5,#08ad80)!important;color:white!important;border:1px solid rgba(255,255,255,.9)!important;box-shadow:0 9px 20px rgba(9,181,133,.21),inset 0 1px 0 rgba(255,255,255,.48)!important}
+.direction-buttons>.down,.trade-down,.action-down,button[class*="lower"],button[class*="sell"],button[class*="put"]{border-radius:28px!important;background:linear-gradient(180deg,#ff7b84,#e94359)!important;color:white!important;border:1px solid rgba(255,255,255,.9)!important;box-shadow:0 9px 20px rgba(237,75,94,.19),inset 0 1px 0 rgba(255,255,255,.48)!important}
+.bottom-nav{border-radius:30px 30px 0 0!important;background:rgba(255,255,255,.76)!important;border:1px solid rgba(255,255,255,.96)!important;box-shadow:0 -8px 28px rgba(57,84,128,.09)!important}
+.bottom-nav button{background:transparent!important;box-shadow:none!important;border:0!important;color:#8190a6!important}.bottom-nav button.active,.bottom-nav .active{color:#2879eb!important}
+.asset-results,.asset-picker__list,.rewards-sheet,.recent-trades-content{background:transparent!important;color:#17243b!important}
+.asset-entry,.asset-picker__row,.recent-trade-card,.recent-trades-card,.rewards-open-battle,.rewards-detail-card,.rewards-inventory-item,.rewards-achievement-card,.rewards-data-row,.rewards-battle-card{background:rgba(255,255,255,.78)!important;color:#17243b!important;border-color:#e0e8f3!important}
+.asset-identification strong,.asset-quote>b,.asset-picker__label,.asset-picker__row,.recent-asset>strong,.recent-outcome>strong,.rewards strong,.rewards h1,.rewards h2,.rewards h3{color:#17243b!important}
+.asset-identification>small,.asset-quote>small,.subtle,.rewards p,.rewards small,.recent-detail,.recent-time{color:#7b8ba2!important}
+.chart-settings__row,.chart-settings__indicator,.chart-settings__type,.asset-picker__tabs,.asset-picker__tabs button,.duration-presets button,.chart-settings__chips button{background:rgba(255,255,255,.8)!important;color:#334762!important;border-color:#e1e8f2!important}
+.chart-settings__row,.chart-settings__indicator,.chart-settings__type{border-radius:15px!important}
+.chart-settings__chips button.is-selected,.chart-settings__type.is-selected,.asset-picker__tabs button.is-selected,.asset-picker__tabs button.active{background:#e7f0ff!important;color:#2675df!important;border-color:#b9d3fb!important}
+input,select,textarea,.field,.ac-form input,.ac-form select,.ac-money-input,.ac-address input,.asset-picker__search{background:rgba(247,250,255,.9)!important;color:#17243b!important;border:1px solid #dce5f1!important;border-radius:14px!important;box-shadow:inset 0 1px 2px rgba(39,64,100,.035)!important}
+input::placeholder,textarea::placeholder{color:#94a2b7!important}
+.backdrop,.ac-inline-backdrop{background:rgba(35,49,72,.20)!important;backdrop-filter:blur(8px)!important}
+.toast{background:rgba(255,255,255,.92)!important;color:#17243b!important;border:1px solid #dce5f1!important;box-shadow:0 10px 28px rgba(45,67,102,.15)!important;backdrop-filter:blur(18px)!important}
+.open-position,.drawing-label{background:rgba(255,255,255,.9)!important;color:#7b632e!important;border-color:#e1d4b7!important;backdrop-filter:blur(10px)!important}
+@media(min-width:600px){body{background:radial-gradient(ellipse at 8% 0%,rgba(247,211,229,.42),transparent 38%),radial-gradient(ellipse at 95% 18%,rgba(195,220,255,.48),transparent 40%),#f2f6fc!important}.device-shell{background:transparent!important;box-shadow:0 18px 60px rgba(51,76,116,.12)!important}}
