@@ -32,6 +32,7 @@ import RecentTrades from './RecentTrades';
 import AssetPicker, { REFERENCE_ASSETS } from './AssetPicker';
 import './assetpicker.css';
 import './style.css';
+import './light-theme.css';
 import {
   reconcileDeposits,
   decideLocalRequest,
@@ -49,11 +50,11 @@ REFERENCE_ASSETS.forEach(a => {
 
 const initialSettings = {
   type: 'candles',
-  color: '#f0b04b',
-  upColor: '#00b883',
-  downColor: '#df4c42',
-  background: '#121216',
-  grid: false,
+  color: '#e5a94d',
+  upColor: '#0ab887',
+  downColor: '#ed5361',
+  background: '#f4f7fc',
+  grid: true,
   crosshair: true,
   social: false,
   autoZoom: true,
@@ -112,6 +113,11 @@ function App() {
   const [settings, setSettings] = useState(() => ({
     ...initialSettings,
     ...load('cue-trade-chart', {}),
+    // Enforce the requested light chart even when this browser has an older dark theme saved.
+    background: '#f4f7fc',
+    grid: true,
+    upColor: '#0ab887',
+    downColor: '#ed5361',
     ...(['line', 'area', 'bar', 'candles'].includes(previewParams.get('type'))
       ? { type: previewParams.get('type') }
       : {})

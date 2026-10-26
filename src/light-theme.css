@@ -1,0 +1,179 @@
+/* Unified light fintech theme — shared by every screen and overlay */
+:root{
+ color-scheme:light;
+ --ink:#17243b;--ink-2:#415571;--muted:#7b8ba2;--line:#e1e8f2;
+ --paper:#f4f7fc;--surface:#ffffff;--surface-2:#edf2f9;
+ --green:#0ab887;--red:#ed5361;--blue:#2779ed;--safe:env(safe-area-inset-bottom,0px);
+ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;
+ color:var(--ink);background:var(--paper)
+}
+html,body,#root{background:#f3f6fb;color:var(--ink)}
+body{background:radial-gradient(ellipse at 0% 8%,rgba(249,215,230,.48),transparent 32%),radial-gradient(ellipse at 100% 28%,rgba(196,222,255,.55),transparent 35%),#f4f7fc}
+.device-shell{background:transparent;color:var(--ink);box-shadow:none}
+.trading-app{background:transparent;color:var(--ink)}
+/* consistent surfaces */
+.account-header,.bottom-nav,.bottom-sheet,.amount-sheet,.chart-settings,.asset-picker,.account-sheet,
+.account-ui,.rewards,.recent-trades,.chart-settings-panel,.settings-sheet,.sheet,.modal,.dialog,
+.ac-card,.rewards-card,.rewards-section,.rewards-battle-card,.rewards-open-battle,.rewards-detail-card,
+.rewards-inventory-item,.asset-picker__row,.asset-picker__search-wrap,.asset-picker__tabs,
+.ac-balance-card,.ac-mode-card,.ac-request,.ac-inline-modal,.ac-vip-strip,.ac-vip-detail,
+.ac-profile-hero,.ac-section-heading,.ac-history,.ac-fee-box,.ac-promo-entry,.ac-approval,
+.chart,.chart-panel,.asset-entry,.asset-results,.analytics-grid,.recent-trades-card{
+ background:rgba(255,255,255,.88);color:var(--ink);border-color:var(--line)
+}
+.account-header{border:1px solid rgba(221,230,242,.95);border-radius:28px;box-shadow:0 7px 22px rgba(49,76,117,.07);margin:8px 10px 10px;padding:0 12px}
+.balance-display,.account-modes,.account-open,.asset-choose,.amount-content,.duration-content{color:var(--ink)}
+.balance-display small,.muted,.subtle,.ac-empty,.ac-form label,.ac-form h3,.ac-balances p,.ac-total small,.sp-sub,.sp-split,.sp-mystery{color:var(--muted)!important}
+/* controls */
+button{color:inherit}
+input,select,textarea{background:#f7f9fd!important;color:var(--ink)!important;border:1px solid #dce5f1!important;border-radius:12px!important;box-shadow:inset 0 1px 2px rgba(39,64,100,.025)}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid #70a8f7;outline-offset:2px}
+.ac-circle,.ac-wallet-shortcuts span,.amount-step,.amount-value,.asset-picker__favorite,.asset-picker__search-icon,
+.asset-picker__icon,.asset-picker__search-favorite,.ac-top-icons button,.ac-modal-close,.ac-modal-close button,
+.chart-settings button,.bottom-nav button,.nav-button,.round-button,.icon-button{
+ background:linear-gradient(145deg,#fff,#edf2f9)!important;color:#536782!important;border:1px solid #e1e9f4!important;
+ box-shadow:4px 5px 12px rgba(44,72,112,.09),-3px -3px 9px rgba(255,255,255,.9)!important
+}
+/* trading instrument / quote */
+.asset-quote,.asset-identification,.asset-choose,.asset-results,.asset-entry,.amount-content,.duration-content,
+.amount-sheet,.bottom-sheet{border-color:var(--line)!important;color:var(--ink)}
+.asset-quote,.asset-choose,.amount-content,.duration-content{background:rgba(255,255,255,.9)!important;border-radius:22px!important;box-shadow:0 8px 24px rgba(48,77,120,.07)!important}
+/* chart area: retain candle colors and chart interactions */
+.chart,.chart-wrap,.chart-container,.trading-chart,.chart-panel,.chart-stage{background:linear-gradient(145deg,#fbfdff,#edf3fb)!important;border:1px solid #e1e9f4!important;border-radius:24px!important;box-shadow:0 10px 25px rgba(53,83,128,.08)!important}
+.chart svg text,.chart text{fill:#7d8da5}
+/* amount and duration */
+.amount-sheet,.amount-content,.duration-content{background:rgba(255,255,255,.9)!important;border:1px solid #e1e8f2!important;border-radius:24px!important}
+.amount-step{border-radius:50%!important}
+.amount-value,.amount-big,.amount-content strong{color:#15243d!important}
+/* primary trade actions */
+button[class*="up"],button[class*="higher"],button[class*="call"],button[class*="buy"],.trade-up,.action-up{
+ background:linear-gradient(180deg,#18c995,#09ad7d)!important;color:#fff!important;border:1px solid rgba(255,255,255,.7)!important;box-shadow:0 7px 16px rgba(10,184,135,.19)!important
+}
+button[class*="down"],button[class*="lower"],button[class*="put"],button[class*="sell"],.trade-down,.action-down{
+ background:linear-gradient(180deg,#f66c76,#e84b59)!important;color:#fff!important;border:1px solid rgba(255,255,255,.72)!important;box-shadow:0 7px 16px rgba(237,83,97,.18)!important
+}
+/* navigation */
+.bottom-nav{background:rgba(255,255,255,.94)!important;border:1px solid #e0e8f3!important;border-radius:28px 28px 0 0!important;box-shadow:0 -5px 24px rgba(50,78,118,.07)!important;backdrop-filter:blur(18px)}
+.bottom-nav button{background:transparent!important;box-shadow:none!important;border-color:transparent!important;color:#8290a5!important}
+.bottom-nav button.active,.bottom-nav .active{color:#2879eb!important}
+/* sheets, drawers and overlays */
+.backdrop,.ac-inline-backdrop{background:rgba(35,49,72,.24)!important;backdrop-filter:blur(5px)}
+.bottom-sheet,.account-sheet,.account-ui,.rewards,.chart-settings,.amount-sheet,.asset-picker,.ac-inline-modal{
+ background:#f8faff!important;color:var(--ink)!important;border:1px solid #e0e8f3!important;box-shadow:0 18px 50px rgba(35,57,91,.18)!important
+}
+/* account, wallet, deposit, withdrawal, profile, settings, verification */
+.ac-head h1,.ac-total strong,.ac-balances h3,.ac-form h3,.ac-section-heading,.ac-profile-row strong,
+.ac-request strong,.ac-money-page h2,.ac-vip-detail h2,.ac-identity strong{color:var(--ink)!important}
+.ac-card,.ac-balance-card,.ac-mode-card,.ac-request,.ac-profile-hero,.ac-vip-detail,.ac-vip-strip,
+.ac-fee-box,.ac-approval,.ac-inline-modal,.ac-settings,.ac-news,.ac-history,.ac-money-grid>button{
+ background:#fff!important;border:1px solid var(--line)!important;border-radius:18px!important;box-shadow:0 5px 16px rgba(42,67,106,.045)!important;color:var(--ink)!important
+}
+.ac-form input,.ac-form select,.ac-money-input,.ac-address input{background:#f6f8fc!important;color:var(--ink)!important;border-color:#dce5f1!important}
+.ac-toggle{background:#d9e1ed!important}.ac-toggle.on{background:#16bd8b!important}
+.ac-toggle i{background:white!important;box-shadow:0 2px 5px #21395a25}
+.ac-balances p{border-color:#e7edf5!important}.ac-balances p strong{color:var(--ink)!important}
+.ac-text,.ac-profile-row,.ac-section-heading,.ac-vip-tabs{color:var(--ink-2)!important}
+/* rewards, achievements, battles and inventory */
+.rewards{color:var(--ink)!important;background:transparent!important}
+.rewards h1,.rewards h2,.rewards h3,.rewards strong,.rewards .achievement-detail-name{color:var(--ink)}
+.rewards p,.rewards small,.rewards .achievement-line{color:var(--muted)}
+.rewards .rewards-battle-card.social,.rewards .rewards-open-battle,.rewards .rewards-detail-card,
+.rewards .rewards-inventory-item,.rewards .rewards-card,.rewards .achievement-card{
+ background:#fff!important;border:1px solid var(--line)!important;color:var(--ink)!important;box-shadow:0 7px 20px rgba(42,67,106,.06)!important
+}
+.rewards .rewards-battle-card.social .sp-join{background:#2879eb!important;box-shadow:0 6px 14px #2879eb25!important;animation:none!important}
+.rewards .rewards-open-battle button{background:#2879eb!important;color:#fff!important}
+.rewards .rewards-open-battle .battle-owner-tag{background:#edf3ff!important;color:#3d6ec1!important}
+.rewards .rewards-inventory-item.is-selected{border-color:#4389f5!important;box-shadow:0 0 0 3px #4389f51a!important}
+/* asset picker, search, favorites, tabs */
+.asset-picker__search,.asset-picker__search-wrap,.asset-picker__row,.asset-picker__tabs button,
+.asset-picker__tab,.asset-picker__choose,.asset-picker__list{color:var(--ink)!important}
+.asset-picker__row{background:#fff!important;border-bottom:1px solid #edf1f7!important}
+.asset-picker__row:hover,.asset-picker__row--active{background:#edf5ff!important}
+.asset-picker__tabs button.active,.asset-picker__tab.active{background:#e8f1ff!important;color:#236ed1!important}
+.asset-picker__payout,.asset-picker__stock-change{color:#0a9f76!important}
+/* chart settings and indicators */
+.chart-settings,.chart-settings *,.chart-settings-panel,.chart-settings-panel *{color:var(--ink-2)}
+.chart-settings button.active,.chart-settings .active{background:#e9f2ff!important;color:#2675df!important}
+.chart-settings input,.chart-settings select{background:#fff!important;color:var(--ink)!important}
+/* recent trades, history, analytics */
+.recent-trades,.recent-trades *,.analytics-grid,.analytics-grid *{color:var(--ink-2)}
+.recent-trades .empty,.ac-empty{color:var(--muted)!important}
+/* common labels, separators, badges */
+hr,.divider,.ac-balances p{border-color:#e5ebf4!important}
+.badge-nav,.active-code{background:#eaf2ff!important;color:#2b70cf!important}
+.green,.positive,.asset-profit{color:#079b70!important}.red,.negative{color:#df4c59!important}
+/* reduce overly glossy AI-like styling; keep realistic depth */
+*{scrollbar-color:#c8d4e5 transparent}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media(min-width:600px){.device-shell{box-shadow:0 18px 70px rgba(36,58,93,.12);border-left:1px solid #e6edf6;border-right:1px solid #e6edf6}}
+
+/* Final consistency pass: remove legacy dark surfaces from every route and sheet. */
+:root{color-scheme:light!important;--surface:#fff!important;--muted:#7b8ba2!important}
+html,body,#root,.device-shell,.trading-app{background-color:#f4f7fc!important;color:#17243b!important}
+@media(min-width:600px){body{background:#edf2f9!important}.device-shell{background:#f4f7fc!important}}
+.account-header{background:rgba(255,255,255,.9)!important;border:1px solid #dce6f4!important}
+.deposit-pill{background:linear-gradient(145deg,#fff,#edf3fb)!important;color:#17243b!important;border:1px solid #e1e9f4!important;box-shadow:0 5px 16px #314c7514!important}
+.account-modes{background:#e9eef6!important;border-color:#dce5f1!important}
+.account-modes button{color:#62738b!important}
+.account-modes .selected-real{background:#08b987!important;color:#fff!important}
+.account-modes .selected-demo{background:#347cf0!important;color:#fff!important}
+.trade-toolbar .pair-select{background:rgba(255,255,255,.94)!important;color:#17243b!important;border:1px solid #e1e9f4!important;box-shadow:0 7px 20px #314c7514!important}
+.trade-toolbar .pair-select strong{color:#17243b!important}
+.trade-toolbar .pair-select small{color:#e95362!important}
+.circle,.trade-toolbar .circle{background:linear-gradient(145deg,#fff,#edf2f9)!important;color:#536782!important;border:1px solid #e1e9f4!important;box-shadow:4px 5px 12px #2c487012,-3px -3px 9px #ffffffd9!important}
+.amount-step{background:#f4f7fc!important;box-shadow:0 0 0 1px #e1e8f2!important;border:1px solid #e1e8f2!important}
+.step-circle{background:linear-gradient(145deg,#fff,#e9eff8)!important;color:#31445f!important;border:1px solid #e1e9f4!important;box-shadow:0 4px 10px #314c7514!important}
+.duration-pill{background:linear-gradient(145deg,#fff,#edf2f9)!important;color:#17243b!important;border:1px solid #dce5f1!important;box-shadow:0 5px 15px #314c7514!important}
+.input-captions,.payout-note,.local-disclosure{color:#7b8ba2!important}
+.chart,.chart canvas{background:#f4f7fc!important}
+.chart{border:1px solid #e1e9f4!important;border-radius:24px!important;box-shadow:0 10px 25px #35538014!important}
+.feed-status{background:#ffffffd9!important;color:#64748b!important}
+.feed-status.live{color:#0a9f76!important}.feed-status.otc{color:#9b7b42!important}.feed-status.error,.feed-status.stale{color:#c05a52!important}
+.bottom-sheet,.sheet-drag-zone,.sheet--assets,.sheet--recent-trades,.account-sheet,.chart-sheet,.chart-settings,.asset-picker,.recent-trades,.rewards,.account-ui{background:#f8faff!important;color:#17243b!important;border-color:#e0e8f3!important}
+.sheet-drag-zone{background:#f8faff!important}.sheet-handle{background:#c3cfdf!important}
+.secondary,.number-pad button,.duration-presets button,.time-wheels:before,.wheel-current select option{background:#edf2f9!important;color:#334762!important}
+.search-line,.search-line input,.feed-explainer,.position-row,.position-row small{color:#536782!important}
+.position-row{border-color:#e1e8f2!important}
+.toast{background:#fff!important;color:#17243b!important;border-color:#dce5f1!important;box-shadow:0 8px 30px #314c7520!important}
+.open-position,.drawing-label{background:#fff!important;color:#7b632e!important;border-color:#e1d4b7!important}
+.chart-settings__header,.chart-settings__row,.chart-settings__section-title,.chart-settings__indicator,.chart-settings__type,.chart-settings__chips button,.chart-settings__toggle-group{color:#334762!important}
+.chart-settings__row,.chart-settings__indicator,.chart-settings__type{background:#fff!important;border-color:#e1e8f2!important}
+.chart-settings__chips button{background:#edf2f9!important}
+.chart-settings__chips button.is-selected,.chart-settings__type.is-selected{background:#e8f1ff!important;color:#2675df!important;border-color:#b9d3fb!important}
+.account-open .bottom-sheet.account-sheet{background:#f8faff!important}
+@media(min-width:600px){.bottom-sheet{box-shadow:0 -10px 40px #314c751f!important}.modal-layer .backdrop{background:#2331483d!important}}
+
+/* Glass theme hardening: override legacy dark styles across every route, modal and nested control. */
+:root{color-scheme:light!important}
+html,body,#root,.device-shell,.trading-app,.account-open,.modal-layer{background-color:#f4f7fc!important;color:#17243b!important}
+.account-header,.trade-toolbar .pair-select,.amount-content,.duration-content,.amount-sheet,.bottom-sheet,.account-sheet,.account-ui,.rewards,.chart-settings,.chart-settings-panel,.asset-picker,.recent-trades,.sheet,.sheet--account,.sheet--assets,.sheet--amount,.sheet--duration,.sheet--chart-style,.sheet--alligator,.sheet--insufficient,.account-page--account .bottom-sheet.account-sheet,.account-page--deposit .bottom-sheet.account-sheet,.account-page--withdraw .bottom-sheet.account-sheet{
+ background:rgba(255,255,255,.88)!important;color:#17243b!important;border-color:#dfe8f4!important;box-shadow:0 12px 34px rgba(42,68,108,.10)!important;backdrop-filter:blur(18px) saturate(135%)
+}
+.trade-toolbar .pair-select,.amount-content,.duration-content,.duration-pill,.deposit-pill,.account-modes,.amount-step,.step-circle,.circle,.trade-toolbar .circle,.ac-circle,.ac-top-icons button,.chart-settings button,.asset-picker__tabs button,.duration-presets button,.number-pad button,.secondary,.icon-button,.round-button{
+ background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(235,242,251,.94))!important;color:#31445f!important;border:1px solid #e0e8f3!important;box-shadow:4px 5px 14px rgba(44,72,112,.08),-3px -3px 10px rgba(255,255,255,.92)!important
+}
+.trade-toolbar .pair-select strong,.asset-quote>b,.amount-value,.amount-big,.amount-content strong,.duration-content strong,.account-header strong,.balance-display strong,.account-modes button,.deposit-pill,.sheet h1,.sheet h2,.sheet h3,.bottom-sheet h1,.bottom-sheet h2,.bottom-sheet h3{color:#17243b!important}
+.trade-toolbar .pair-select small,.asset-quote small{color:#e95362!important}
+.chart,.chart-wrap,.chart-container,.trading-chart,.chart-panel,.chart-stage,.chart canvas{background:#f4f7fc!important;border:1px solid #e1e9f4!important;border-radius:24px!important}
+.chart{background:linear-gradient(145deg,#fbfdff,#edf3fb)!important;box-shadow:0 10px 25px rgba(53,83,128,.08)!important;overflow:hidden}
+.chart canvas{border:0!important;box-shadow:none!important}
+.chart-settings__body,.chart-settings__header,.chart-settings__row,.chart-settings__section-title,.chart-settings__indicator,.chart-settings__type,.chart-settings__chips,.chart-settings__toggle-group,.chart-settings__field,.asset-picker__list,.asset-picker__row,.asset-picker__search-wrap,.asset-picker__tabs,.search-line,.position-row,.account-form,.account-page,.ac-form,.ac-settings,.ac-news,.ac-history,.ac-money-page,.ac-profile-row,.ac-vip-tabs{background:transparent!important;color:#415571!important;border-color:#e1e8f2!important}
+.chart-settings__row,.chart-settings__indicator,.chart-settings__type,.asset-picker__row,.asset-picker__search-wrap,.asset-picker__tabs,.ac-card,.ac-balance-card,.ac-mode-card,.ac-request,.ac-profile-hero,.ac-vip-detail,.ac-vip-strip,.ac-fee-box,.ac-approval,.ac-inline-modal,.ac-settings,.ac-news,.ac-history,.ac-money-grid>button,.rewards-card,.rewards-section,.rewards-battle-card,.rewards-open-battle,.rewards-detail-card,.rewards-inventory-item,.achievement-card,.recent-trades-card,.analytics-grid{
+ background:rgba(255,255,255,.92)!important;color:#17243b!important;border:1px solid #e1e8f2!important;border-radius:18px!important;box-shadow:0 6px 18px rgba(42,67,106,.055)!important
+}
+.account-page--account .bottom-sheet.account-sheet{background:rgba(255,255,255,.96)!important}
+.account-page--deposit .bottom-sheet.account-sheet,.account-page--withdraw .bottom-sheet.account-sheet{background:rgba(255,255,255,.98)!important}
+.bottom-nav{background:rgba(255,255,255,.92)!important;border:1px solid #dfe8f4!important;box-shadow:0 -5px 24px rgba(50,78,118,.07)!important;backdrop-filter:blur(18px) saturate(135%)}
+.bottom-nav button{background:transparent!important;color:#8290a5!important;box-shadow:none!important}
+.bottom-nav button.active,.bottom-nav .active{color:#2879eb!important}
+input,select,textarea,.ac-form input,.ac-form select,.ac-money-input,.ac-address input,.asset-picker__search{background:#f7f9fd!important;color:#17243b!important;border:1px solid #dce5f1!important}
+input::placeholder,textarea::placeholder{color:#94a2b7!important}
+button:not(.trade-up):not(.action-up):not(.trade-down):not(.action-down):not([class*="up"]):not([class*="down"]){color:inherit}
+button[class*="up"],button[class*="higher"],button[class*="call"],button[class*="buy"],.trade-up,.action-up,.direction-buttons>.up{background:linear-gradient(180deg,#20c99a,#08ad7d)!important;color:#fff!important;border:1px solid rgba(255,255,255,.78)!important;box-shadow:0 8px 18px rgba(10,184,135,.18)!important}
+button[class*="down"],button[class*="lower"],button[class*="put"],button[class*="sell"],.trade-down,.action-down{background:linear-gradient(180deg,#f66c76,#e84b59)!important;color:#fff!important;border:1px solid rgba(255,255,255,.78)!important;box-shadow:0 8px 18px rgba(237,83,97,.16)!important}
+.toast{background:rgba(255,255,255,.96)!important;color:#17243b!important;border-color:#dce5f1!important}
+.feed-status{background:rgba(255,255,255,.84)!important;color:#64748b!important}
+.open-position,.drawing-label{background:#fff!important;color:#7b632e!important;border-color:#e1d4b7!important}
+hr,.divider,.position-row,.ac-balances p{border-color:#e5ebf4!important}
+@media(min-width:600px){body{background:radial-gradient(ellipse at 0% 8%,rgba(249,215,230,.38),transparent 32%),radial-gradient(ellipse at 100% 28%,rgba(196,222,255,.45),transparent 35%),#edf2f9!important}.device-shell{background:#f4f7fc!important}}

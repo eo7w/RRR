@@ -9,7 +9,7 @@ import './chartsettings.css';
 
 const DEFAULTS = {
   type: 'candles', color: '#f0b04b', upColor: '#00c77b', downColor: '#e7463c',
-  background: '#121216', grid: false, crosshair: true, social: false,
+  background: '#f4f7fc', grid: true, crosshair: true, social: false,
   autoZoom: true, timer: true, interval: '1m', alligator: false,
   alligatorValues: { jaw: 13, jawShift: 8, teeth: 8, teethShift: 5, lips: 5, lipsShift: 3, jawColor: '#ff7d8b', teethColor: '#226e98', lipsColor: '#9460ef' }
 };
@@ -17,7 +17,7 @@ const intervals = ['5s','10s','15s','30s','1m','5m','15m','30m','1h','4h','1d','
 const palette = ['#366bff','#17bd97','#9460ef','#f0b04b','#f2f2f4'];
 const upPalette=['#249d79','#00c77b','#17bd97','#366bff','#f2f2f4','#f0b04b'];
 const downPalette = ['#d7464b','#ff5b66','#da32e8','#fa853b','#9460ef','#89939b'];
-const backgrounds = ['#121216','#10151e','#081c1b','#101018','#17102a','#090b0e'];
+const backgrounds = ['#f4f7fc','#ffffff','#edf3fb','#f4f0f7','#eef8f6','#f3f5f8'];
 const indicators = [
   ['alligator','التمساح'], ['awesome','المتذبذب الرائع'], ['bollinger','مؤشر بولينجر باند'], ['fractal','كسورية'],
   ['macd','MACD'], ['movingAverage','المتوسط المتحرك'], ['parabolic','مؤشر التوقف والانعكاس'], ['rsi','مؤشر القوة النسبية'],
