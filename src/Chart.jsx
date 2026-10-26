@@ -1,98 +1,69 @@
-import React from 'react';
+import React,{useEffect,useRef,useState} from 'react';
+import {Crosshair, X, Trophy, User} from 'lucide-react';
+import './tradefx.css';
+const sma=(a,n)=>a.map((_,i)=>{const q=a.slice(Math.max(0,i-n+1),i+1);return q.reduce((x,y)=>x+y,0)/q.length;});
+const ema=(a,n)=>{const k=2/(n+1),out=[];a.forEach((v,i)=>out.push(i?out[i-1]+k*(v-out[i-1]):v));return out;};
+const smma=(a,n)=>{const out=[];a.forEach((v,i)=>out.push(i?((out[i-1]*(n-1))+v)/n:v));return out;};
+const std=(a,n)=>a.map((_,i)=>{const q=a.slice(Math.max(0,i-n+1),i+1),m=q.reduce((x,y)=>x+y,0)/q.length;return Math.sqrt(q.reduce((x,y)=>x+(y-m)**2,0)/q.length);});
+function calc(name,bars,period=14){const c=bars.map(b=>b.close),h=bars.map(b=>b.high),l=bars.map(b=>b.low),m=bars.map(b=>(b.high+b.low)/2),p=+period||14;switch(name.toLowerCase()){case'movingaverage':case'ma':case'sma':return{lines:[sma(c,p)],value:sma(c,p).at(-1),price:true};case'bollinger':case'bollingerbands':{const mid=sma(c,p),sd=std(c,p);return{lines:[mid,mid.map((v,i)=>v+2*sd[i]),mid.map((v,i)=>v-2*sd[i])],value:mid.at(-1),price:true};}case'fractal':{const up=[],dn=[];for(let i=0;i<c.length;i++){up.push(i>=2&&i<c.length-2&&h[i]>h[i-1]&&h[i]>h[i-2]&&h[i]>=h[i+1]&&h[i]>=h[i+2]?h[i]:null);dn.push(i>=2&&i<c.length-2&&l[i]<l[i-1]&&l[i]<l[i-2]&&l[i]<=l[i+1]&&l[i]<=l[i+2]?l[i]:null);}return{marks:{up,dn},value:'—',price:true};}case'parabolicsar':{let bull=true,af=.02,ep=h[0],sar=l[0],out=[sar];for(let i=1;i<c.length;i++){sar=sar+af*(ep-sar);if(bull){sar=Math.min(sar,l[i-1],i>1?l[i-2]:l[i-1]);if(l[i]<sar){bull=false;sar=ep;ep=l[i];af=.02;}else if(h[i]>ep){ep=h[i];af=Math.min(.2,af+.02);}}else{sar=Math.max(sar,h[i-1],i>1?h[i-2]:h[i-1]);if(h[i]>sar){bull=true;sar=ep;ep=l[i];af=.02;}else if(l[i]<ep){ep=l[i];af=Math.min(.2,af+.02);}}out.push(sar);}return{lines:[out],value:out.at(-1),price:true};}case'alligator':return{lines:[smma(h,p),smma(m,p),smma(l,p)],value:'—',price:true};case'macd':{const fast=ema(c,12),slow=ema(c,26),line=fast.map((v,i)=>v-slow[i]),signal=ema(line,9);return{lines:[line,signal],value:line.at(-1),osc:true};}case'awesome':{const line=sma(m,5).map((v,i)=>v-sma(m,34)[i]);return{lines:[line],value:line.at(-1),osc:true};}case'rsiwilder':case'rsi':{const gain=[],loss=[];c.forEach((v,i)=>{const d=i? v-c[i-1]:0;gain.push(Math.max(0,d));loss.push(Math.max(0,-d));});const ag=smma(gain,14),al=smma(loss,14),line=ag.map((v,i)=>al[i]?100-100/(1+v/al[i]):100);return{lines:[line],value:line.at(-1),osc:true};}case'stochastick':case'stochastic':{const line=c.map((v,i)=>{const lo=Math.min(...l.slice(Math.max(0,i-13),i+1)),hi=Math.max(...h.slice(Math.max(0,i-13),i+1));return hi===lo?50:(v-lo)/(hi-lo)*100;});return{lines:[line],value:line.at(-1),osc:true};}case'atrwilder':case'atr':{const tr=c.map((v,i)=>i?Math.max(h[i]-l[i],Math.abs(h[i]-c[i-1]),Math.abs(l[i]-c[i-1])):h[i]-l[i]);const line=smma(tr,14);return{lines:[line],value:line.at(-1),osc:true};}case'stochrsi':{const r=calc('rsi',bars,14).lines[0];const line=r.map((v,i)=>{const q=r.slice(Math.max(0,i-13),i+1),lo=Math.min(...q),hi=Math.max(...q);return hi===lo?0:(v-lo)/(hi-lo)*100;});return{lines:[line],value:line.at(-1),osc:true};}case'momentum':{const line=c.map((v,i)=>i<14?100:v/c[i-14]*100);return{lines:[line],value:line.at(-1),osc:true};}default:return{lines:[],value:'—'};}}
 
-export default function Chart() {
-  // بيانات الشموع اليابانية المتطابقة مع حركة السعر البصرية
-  const candles = [
-    { open: 80, high: 65, low: 110, close: 70, isUp: true },
-    { open: 95, high: 75, low: 135, close: 130, isUp: false },
-    { open: 130, high: 60, low: 140, close: 70, isUp: true },
-    { open: 85, high: 75, low: 105, close: 100, isUp: true },
-    { open: 102, high: 95, low: 115, close: 110, isUp: true },
-    { open: 110, high: 105, low: 125, close: 120, isUp: false },
-    { open: 118, high: 110, low: 130, close: 125, isUp: true },
-    { open: 125, high: 115, low: 135, close: 130, isUp: false },
-    { open: 130, high: 120, low: 145, close: 140, isUp: true },
-    { open: 140, high: 130, low: 155, close: 150, isUp: false },
-    { open: 148, high: 140, low: 165, close: 160, isUp: true },
-    { open: 160, high: 150, low: 175, close: 170, isUp: true },
-    { open: 170, high: 155, low: 185, close: 180, isUp: false },
-    { open: 178, high: 165, low: 195, close: 190, isUp: true },
-    { open: 190, high: 180, low: 205, close: 200, isUp: true },
-    { open: 200, high: 190, low: 220, close: 215, isUp: false },
-    { open: 215, high: 200, low: 235, close: 230, isUp: true },
-    { open: 230, high: 220, low: 250, close: 245, isUp: true },
-    { open: 245, high: 235, low: 260, close: 255, isUp: false },
-    { open: 255, high: 240, low: 275, close: 270, isUp: true },
-    { open: 270, high: 250, low: 290, close: 280, isUp: true },
-    { open: 280, high: 265, low: 300, close: 290, isUp: false },
-    { open: 290, high: 270, low: 305, close: 280, isUp: false },
-    { open: 280, high: 260, low: 295, close: 285, isUp: false },
-    { open: 285, high: 270, low: 290, close: 275, isUp: true }
-  ];
+/* عدد الشموع الظاهرة، والمساحة الفارغة يمين الشمعة الحالية، وسرعة الرسم بالبكسل لكل ثانية للصفقات المفتوحة */
+const BARS=56,FUTURE=9,PX_PER_SEC=7;
+const money=v=>'$'+Number(v).toLocaleString('en-US',{maximumFractionDigits:2});
+const mmss=s=>String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
 
-  return (
-    <div className="chart-inner">
-      {/* 1. علامات الأسعار الفلوت */}
-      <div className="price-tag price-tag-top-left">158.0461</div>
-      <div className="price-tag price-tag-top-right">158.0484</div>
-      <div className="price-tag price-tag-bottom-left">158.0303</div>
+export default function Chart({market,asset,settings,trades,onTradeClick,onToast,battle,onBattleClick}){
+ const ref=useRef(null),root=useRef(null),data=useRef({market,asset,settings,trades}),cross=useRef(null),drawings=useRef([]),draft=useRef(null),frame=useRef(0),paint=useRef(null),rangeRef=useRef(null),symbolRef=useRef(asset.symbol),slide=useRef(0),lastOpen=useRef(null),prevStatus=useRef(new Map());const [size,setSize]=useState([1,1]);const [pops,setPops]=useState([]);data.current={market,asset,settings,trades};
+ useEffect(()=>{let ro=new ResizeObserver(([e])=>setSize([e.contentRect.width,e.contentRect.height]));ro.observe(root.current);return()=>ro.disconnect();},[]);
+ useEffect(()=>{drawings.current=[];rangeRef.current=null;lastOpen.current=null;slide.current=0;symbolRef.current=asset.symbol;},[asset.symbol,settings.clearDrawings,settings.interval]);
 
-      {/* خط السعر الافقي التنفيذي */}
-      <div className="execution-line"></div>
+ /* إشعار نتيجة الصفقة: يظهر عند تحول الصفقة من مفتوحة إلى مغلقة */
+ useEffect(()=>{trades.forEach(t=>{const was=prevStatus.current.get(t.id);prevStatus.current.set(t.id,t.status);if(was==='open'&&t.status!=='open'){const r=Number(t.result)||0,kind=r>0?'win':r<0?'loss':'tie',id=t.id;setPops(p=>[...p,{id,kind,text:kind==='win'?'+'+money(r)+' ربح':kind==='loss'?'-'+money(Math.abs(r))+' خسارة':'تعادل · أُعيد المبلغ'}]);setTimeout(()=>setPops(p=>p.filter(x=>x.id!==id)),2800);}});},[trades]);
 
-      {/* 2. منطقة الرسم البياني المتجه SVG */}
-      <div className="chart-svg-area">
-        <svg className="chart-svg" viewBox="0 0 500 300" preserveAspectRatio="none">
-          {/* خطوط الشبكة الخلفية */}
-          <line x1="0" y1="75" x2="500" y2="75" stroke="#F1F5F9" strokeWidth="1" />
-          <line x1="0" y1="150" x2="500" y2="150" stroke="#F1F5F9" strokeWidth="1" />
-          <line x1="0" y1="225" x2="500" y2="225" stroke="#F1F5F9" strokeWidth="1" />
-          <line x1="125" y1="0" x2="125" y2="300" stroke="#F1F5F9" strokeWidth="1" />
-          <line x1="250" y1="0" x2="250" y2="300" stroke="#F1F5F9" strokeWidth="1" />
-          <line x1="375" y1="0" x2="375" y2="300" stroke="#F1F5F9" strokeWidth="1" />
+ useEffect(()=>{const canvas=ref.current,ratio=Math.min(window.devicePixelRatio||1,3),[width,height]=size;canvas.width=width*ratio;canvas.height=height*ratio;const ctx=canvas.getContext('2d');let shownPrice=null,running=true,lastT=performance.now();
+ const render=()=>{if(!running)return;
+ /* الحركة تعتمد على الزمن الفعلي حتى تبقى سلسة على أي معدل تحديث للشاشة */
+ const T=performance.now(),dt=Math.min(80,Math.max(1,T-lastT));lastT=T;const ease=a=>1-Math.pow(1-a,dt/16.67);
+ const {market,asset,settings,trades}=data.current;ctx.setTransform(ratio,0,0,ratio,0,0);ctx.clearRect(0,0,width,height);ctx.fillStyle=settings.background;ctx.fillRect(0,0,width,height);const all=market.bars||[],bars=all.slice(-(BARS+1)),n=bars.length,oscDefs=(settings.indicators||[]).filter(i=>i&&typeof i==='object'?i.enabled!==false:true),osc=oscDefs.map(i=>({i,r:calc(typeof i==='string'?i:i.type,bars,typeof i==='object'?i.period:14)})).filter(o=>o.r.osc),panelH=Math.min(osc.length?Math.max(42,osc.length*30):0,height*.28),top=26,bottom=height-36-panelH,left=5,right=width-10,h=Math.max(10,bottom-top);
+ if(!n){ctx.fillStyle='#777780';ctx.font='12px system-ui';ctx.textAlign='center';ctx.fillText(market.status==='loading'?'جارٍ تحميل الرسم البياني…':(market.error||'بانتظار بيانات السوق'),width/2,height/2);frame.current=requestAnimationFrame(render);return;}
 
-          {/* حلقة رسم الشموع اليابانية */}
-          {candles.map((candle, idx) => {
-            const x = idx * 19.5 + 6;
-            const candleWidth = 8.5;
-            const yTop = 300 - candle.low;
-            const yBottom = 300 - candle.high;
-            const bodyTop = 300 - Math.max(candle.open, candle.close);
-            const bodyHeight = Math.max(4, Math.abs(candle.open - candle.close));
-            const color = candle.isUp ? '#10B981' : '#EF4444';
-            return (
-              <g key={idx}>
-                {/* فتيل الشمعة (Wick) */}
-                <line
-                  x1={x + candleWidth / 2}
-                  y1={yTop}
-                  x2={x + candleWidth / 2}
-                  y2={yBottom}
-                  stroke={color}
-                  strokeWidth="1.2"
-                />
-                {/* جسم الشمعة (Body) */}
-                <rect
-                  x={x}
-                  y={bodyTop}
-                  width={candleWidth}
-                  height={bodyHeight}
-                  fill={color}
-                  rx="1.2"
-                />
-              </g>
-            );
-          })}
-        </svg>
-      </div>
+ /* انزلاق ناعم عند ظهور شمعة جديدة بدل القفز */
+ const key=bars[n-1].openTime;if(lastOpen.current!==null&&lastOpen.current!==key)slide.current=1;lastOpen.current=key;slide.current*=Math.pow(.88,dt/16.67);if(slide.current<.002)slide.current=0;
 
-      {/* 3. شريط العلامات الزمنية */}
-      <div className="time-axis">
-        <span>Oct 20:00</span>
-        <span className="time-active">18 Oct 21:00</span>
-        <span>21:15</span>
-        <span>21:30</span>
-      </div>
-    </div>
-  );
+ /* السعر المعروض يلحق السعر الحي تدريجياً */
+ const target=market.price||bars[n-1].close;if(shownPrice===null)shownPrice=target;shownPrice+=(target-shownPrice)*ease(.1);
+
+ /* محور السعر يتحرك بنعومة نحو النطاق الجديد، ويشمل السعر الحالي ونقاط دخول الصفقات */
+ const open=trades.filter(t=>t.status==='open'&&t.symbol===asset.symbol);
+ const lo=Math.min(...bars.map(b=>b.low),shownPrice,...open.map(t=>t.entry)),hi=Math.max(...bars.map(b=>b.high),shownPrice,...open.map(t=>t.entry)),rg=Math.max(hi-lo,lo*.00006),tMin=lo-rg*.14,tMax=hi+rg*.14;
+ if(!rangeRef.current)rangeRef.current={min:tMin,max:tMax};else{const r=rangeRef.current,k=ease(.07);r.min+=(tMin-r.min)*k;r.max+=(tMax-r.max)*k;}
+ const {min,max}=rangeRef.current,span=Math.max(max-min,min*.00006),y=p=>top+(max-p)/span*h,step=(right-left)/(BARS+FUTURE),headX=left+(BARS-1)*step,x=i=>headX+(i-(n-1)+slide.current)*step;paint.current={min,max,top,bottom,span,width,height,x,y};
+ if(settings.grid){ctx.strokeStyle='#ffffff0a';for(let i=0;i<7;i++){let yy=top+i*h/6;ctx.beginPath();ctx.moveTo(0,yy);ctx.lineTo(width,yy);ctx.stroke();}}
+ const points=bars.map((b,i)=>({x:x(i),y:y(i===n-1?shownPrice:b.close)}));
+ if(settings.type==='line'||settings.type==='area'){ctx.beginPath();points.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));if(settings.type==='area'){ctx.lineTo(points.at(-1).x,bottom);ctx.lineTo(points[0].x,bottom);ctx.closePath();const g=ctx.createLinearGradient(0,top,0,bottom);g.addColorStop(0,settings.color+'55');g.addColorStop(1,settings.color+'00');ctx.fillStyle=g;ctx.fill();}ctx.beginPath();points.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.strokeStyle=settings.color;ctx.lineWidth=1.7;ctx.lineJoin='round';ctx.stroke();}else bars.forEach((b,i)=>{const xx=x(i);if(xx<-step||xx>width+step)return;const close=i===n-1?shownPrice:b.close,high=Math.max(b.high,close),low=Math.min(b.low,close),positive=close>=b.open;ctx.strokeStyle=ctx.fillStyle=positive?settings.upColor:settings.downColor;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(xx,y(high));ctx.lineTo(xx,y(low));ctx.stroke();if(settings.type==='bar'){ctx.beginPath();ctx.moveTo(xx-step*.33,y(b.open));ctx.lineTo(xx,y(b.open));ctx.lineTo(xx,y(close));ctx.lineTo(xx+step*.33,y(close));ctx.stroke();}else ctx.fillRect(xx-step*.36,Math.min(y(b.open),y(close)),Math.max(2,step*.72),Math.max(1.5,Math.abs(y(b.open)-y(close))));});
+ ctx.lineWidth=1;
+ const drawLine=(vals,color,shift=0)=>{ctx.strokeStyle=color;ctx.lineWidth=1.1;ctx.beginPath();let started=false;vals.forEach((v,i)=>{if(!Number.isFinite(v))return;const xx=x(i+shift);if(xx>width)return;started?ctx.lineTo(xx,y(v)):ctx.moveTo(xx,y(v));started=true;});ctx.stroke();};
+ if(settings.alligator){const a=settings.alligatorSettings||settings.alligatorValues||{jaw:13,jawShift:8,teeth:8,teethShift:5,lips:5,lipsShift:3};drawLine(smma(bars.map(b=>(b.high+b.low)/2),+a.jaw||13),a.jawColor||a.colors?.[0]||'#ff7a90',Number.isFinite(+a.jawShift)?+a.jawShift:8);drawLine(smma(bars.map(b=>(b.high+b.low)/2),+a.teeth||8),a.teethColor||a.colors?.[1]||'#216c92',Number.isFinite(+a.teethShift)?+a.teethShift:5);drawLine(smma(bars.map(b=>(b.high+b.low)/2),+a.lips||5),a.lipsColor||a.colors?.[2]||'#9263ee',Number.isFinite(+a.lipsShift)?+a.lipsShift:3);}
+ const priceInd=(settings.indicators||[]).filter(i=>i&&typeof i==='object'?i.enabled!==false:true).map(i=>({i,r:calc(typeof i==='string'?i:i.type,bars,typeof i==='object'?i.period:14)})).filter(o=>o.r.price);priceInd.forEach((o,j)=>(o.r.lines||[]).forEach((line,k)=>drawLine(line,['#4687ff','#bc79ed','#e6c85a'][j%3])));const fract=priceInd.find(o=>o.r.marks);if(fract){ctx.fillStyle='#ef6b72';fract.r.marks.up.forEach((v,i)=>v&&ctx.fillText('▼',x(i)-4,y(v)-5));fract.r.marks.dn.forEach((v,i)=>v&&ctx.fillText('▲',x(i)-4,y(v)+12));}
+ const lineColor=settings.type==='area'||settings.type==='line'?settings.color:'#ac8648',yy=y(shownPrice);ctx.strokeStyle=lineColor+'70';ctx.beginPath();ctx.moveTo(0,yy);ctx.lineTo(width,yy);ctx.stroke();ctx.font='10px system-ui';const label=shownPrice.toFixed(asset.digits),lw=ctx.measureText(label).width+18;ctx.fillStyle='#4e3a1d';ctx.beginPath();ctx.roundRect(22,yy-10,lw,20,10);ctx.fill();ctx.fillStyle='#e9d4b0';ctx.textAlign='left';ctx.fillText(label,31,yy+3.5);
+ if(osc.length){const oh=panelH/osc.length;osc.forEach(({i,r},j)=>{const oy=bottom+j*oh, vals=r.lines.flat(),lo=Math.min(...vals),hi=Math.max(...vals),spanO=Math.max(hi-lo,.000001);ctx.strokeStyle='#ffffff14';ctx.beginPath();ctx.moveTo(0,oy);ctx.lineTo(width,oy);ctx.stroke();r.lines.forEach((line,k)=>{ctx.strokeStyle=['#7dc8ff','#df9cf4','#f5c45c'][k%3];ctx.beginPath();line.forEach((v,nn)=>{const px=x(nn),py=oy+5+(hi-v)/spanO*(oh-15);nn?ctx.lineTo(px,py):ctx.moveTo(px,py);});ctx.stroke();});ctx.fillStyle='#c8c8d0';ctx.font='9px system-ui';ctx.textAlign='left';ctx.fillText(`${typeof i==='string'?i:i.type}: ${typeof r.value==='number'?r.value.toFixed(2):r.value}`,6,oy+11);});}
+ const edge=headX+step*1.3;ctx.strokeStyle='#d7a444';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(edge,0);ctx.lineTo(edge,bottom+3);ctx.stroke();ctx.fillStyle='#85858e';ctx.font='9px system-ui';ctx.textAlign='left';ctx.fillText(max.toFixed(asset.digits),2,14);ctx.fillText(min.toFixed(asset.digits),2,bottom-4);const dates=[0,Math.floor(n/2),n-1];dates.forEach((j,i)=>{const t=new Date(bars[j].openTime);ctx.textAlign=i===2?'right':i===1?'center':'left';ctx.fillText(t.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}),i===2?width-8:i===1?width/2:2,height-8);});
+
+ /* نقطة السعر الحالي مع نبضة */
+ const hx=x(n-1),hy=y(shownPrice),pulse=(T%1400)/1400,dotColor=settings.type==='area'||settings.type==='line'?settings.color:'#e8a24a';
+ ctx.save();ctx.globalAlpha=.5*(1-pulse);ctx.fillStyle=dotColor;ctx.beginPath();ctx.arc(hx,hy,4+pulse*13,0,Math.PI*2);ctx.fill();ctx.restore();
+ ctx.save();ctx.shadowColor=dotColor;ctx.shadowBlur=12;ctx.fillStyle=dotColor;ctx.beginPath();ctx.arc(hx,hy,4.5,0,Math.PI*2);ctx.fill();ctx.restore();
+
+ /* الصفقات المفتوحة: منطقة ربح/خسارة، خط الدخول، خط الانتهاء، ومؤقت يتحرك */
+ const nowMs=Date.now();
+ open.forEach(t=>{const up=t.direction==='up',winning=up?shownPrice>t.entry:shownPrice<t.entry,col=winning?settings.upColor:settings.downColor,ey=y(t.entry),ex=Math.max(left,hx-(nowMs-(t.start||nowMs))/1000*PX_PER_SEC),expX=Math.min(width-12,hx+Math.max(0,t.end-nowMs)/1000*PX_PER_SEC);
+  ctx.save();ctx.globalAlpha=.16;ctx.fillStyle=col;ctx.fillRect(ex,Math.min(ey,hy),Math.max(0,hx-ex),Math.max(1,Math.abs(hy-ey)));ctx.restore();
+  ctx.save();ctx.setLineDash([5,4]);ctx.lineWidth=1.4;ctx.strokeStyle=col;ctx.beginPath();ctx.moveTo(ex,ey);ctx.lineTo(width,ey);ctx.stroke();ctx.strokeStyle='#ffffff88';ctx.lineWidth=1.3;ctx.beginPath();ctx.moveTo(expX,0);ctx.lineTo(expX,bottom);ctx.stroke();ctx.restore();
+  ctx.fillStyle=up?settings.upColor:settings.downColor;ctx.strokeStyle='#fff';ctx.lineWidth=2;ctx.beginPath();ctx.arc(ex,ey,5.5,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.lineWidth=1;
+  const secs=Math.max(0,Math.ceil((t.end-nowMs)/1000)),txt=mmss(secs)+'  '+(winning?'+'+money(t.amount*t.payout/100):'-'+money(t.amount));ctx.font='bold 11px system-ui';const pw=ctx.measureText(txt).width+22,ph=24,px=Math.max(6,Math.min(width-pw-6,expX-pw-8)),py=Math.max(top,Math.min(bottom-ph,ey-ph-12));
+  ctx.save();ctx.shadowColor=col+'99';ctx.shadowBlur=14;ctx.fillStyle=col;ctx.beginPath();ctx.roundRect(px,py,pw,ph,12);ctx.fill();ctx.restore();ctx.fillStyle='#fff';ctx.textAlign='center';ctx.fillText(txt,px+pw/2,py+ph/2+4);});
+
+ function renderDrawing(d){ctx.strokeStyle=d.color||'#e3b65f';ctx.lineWidth=d.width||1.5;ctx.beginPath();if(d.type==='horizontal'){ctx.moveTo(0,d.a.y*height);ctx.lineTo(width,d.a.y*height);}else if(d.type==='vertical'){ctx.moveTo(d.a.x*width,0);ctx.lineTo(d.a.x*width,height);}else if(d.type==='pen'){d.points.forEach((p,i)=>i?ctx.lineTo(p.x*width,p.y*height):ctx.moveTo(p.x*width,p.y*height));}else{ctx.moveTo(d.a.x*width,d.a.y*height);ctx.lineTo(d.b.x*width,d.b.y*height);}ctx.stroke();}drawings.current.forEach(renderDrawing);if(draft.current)renderDrawing(draft.current);if(cross.current&&settings.crosshair){const p=cross.current;ctx.setLineDash([3,4]);ctx.lineWidth=1;ctx.strokeStyle='#a9a9b64f';ctx.beginPath();ctx.moveTo(p.x,0);ctx.lineTo(p.x,height-20);ctx.moveTo(0,p.y);ctx.lineTo(width,p.y);ctx.stroke();ctx.setLineDash([]);}if(settings.timer){ctx.fillStyle='#d6bc89';ctx.textAlign='right';ctx.font='9px system-ui';ctx.fillText(new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}),width-10,20);}if(settings.social){ctx.fillStyle='#f1c27d';ctx.textAlign='left';ctx.font='bold 10px system-ui';ctx.fillText('◉ User · local',8,22);}frame.current=requestAnimationFrame(render);};render();return()=>{running=false;cancelAnimationFrame(frame.current);};},[size]);
+ const point=e=>{const r=root.current.getBoundingClientRect();return{x:(e.clientX-r.left)/r.width,y:(e.clientY-r.top)/r.height};};const pointerDown=e=>{if(!settings.drawingTool)return;const p=point(e);e.currentTarget.setPointerCapture(e.pointerId);draft.current={type:settings.drawingTool,a:p,b:p,points:[p],color:settings.penColor||settings.color,width:settings.penWidth||2};};const pointerMove=e=>{const r=root.current.getBoundingClientRect();cross.current={x:e.clientX-r.left,y:e.clientY-r.top};if(draft.current){const p=point(e);draft.current.b=p;draft.current.points.push(p);}};const pointerUp=()=>{if(draft.current){drawings.current.push(draft.current);draft.current=null;onToast?.('أُضيف الرسم إلى المخطط');}};
+ return <div className={'chart '+(settings.drawingTool?'drawing':'')} ref={root} style={{background:settings.background}}><canvas ref={ref} onPointerDown={pointerDown} onPointerMove={pointerMove} onPointerUp={pointerUp} onPointerLeave={()=>{cross.current=null;pointerUp();}} aria-label={'رسم '+asset.label+' '+settings.type}/><div className="trade-pops" aria-live="polite">{pops.map(p=><div key={p.id} className={'trade-pop '+p.kind}>{p.text}</div>)}</div><div className={'feed-status '+market.status} title={market.tick?.timestamp||''}>{market.status==='loading'?'جارٍ الاتصال':market.status==='live'?'BiQuote · مباشر':market.status==='otc'?'OTC · محاكاة اصطناعية':market.status==='stale'?'سعر متأخر · غير حي':'الأسعار غير متاحة'}</div>{battle?.status==='active'&&<div className="battle-chart-markers"><button className="battle-trophy-marker" aria-label="المعركة النشطة" onClick={onBattleClick}><small>1500</small><Trophy size={16}/></button><button className="battle-avatar-marker" aria-label="متابعة المعركة" onClick={onBattleClick}><small>0 · #1</small><span>U#</span></button></div>}{settings.alligator&&<span className="indicator-legend">Alligator SMMA 13/8 · 8/5 · 5/3</span>}{trades.some(t=>t.status==='open')&&<button className="open-position" aria-label="الصفقات المحلية المفتوحة" onClick={onTradeClick}><Trophy size={13}/>{trades.filter(t=>t.status==='open').length}</button>}{settings.drawingTool&&<span className="drawing-label"><Crosshair size={12}/> الرسم مفعّل</span>}</div>;
 }
