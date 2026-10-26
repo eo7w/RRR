@@ -112,6 +112,11 @@ function App() {
   const [settings, setSettings] = useState(() => ({
     ...initialSettings,
     ...load('cue-trade-chart', {}),
+    // إجبار الخلفية الداكنة دائماً لضمان عدم ظهور الرسم البياني أبيض
+    background: '#121216',
+    grid: true,
+    upColor: '#00b883',
+    downColor: '#df4c42',
     ...(['line', 'area', 'bar', 'candles'].includes(previewParams.get('type'))
       ? { type: previewParams.get('type') }
       : {})
