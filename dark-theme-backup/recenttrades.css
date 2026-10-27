@@ -1,0 +1,29 @@
+/* Only the clock's recent-trades sheet is styled here. */
+.bottom-sheet.sheet--recent-trades{height:calc(100dvh - 92px - var(--safe));max-height:calc(100dvh - 92px - var(--safe));padding:0 14px 0;border-radius:25px 25px 0 0;background:linear-gradient(180deg,#202124 0%,#1b1b1f 48%,#1b1b1f 100%);border-color:#37383d;overflow:hidden;display:flex;flex-direction:column}
+.sheet--recent-trades>.sheet-drag-zone{height:23px;min-height:23px;width:100%;padding:0;background:transparent;flex-shrink:0;position:relative;border-radius:0;transform:none;filter:none;box-shadow:none;cursor:grab}
+.sheet--recent-trades .sheet-handle{width:40px;height:4px;background:#535456}
+.recent-trades-content{overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none;flex:1;min-height:0;padding-bottom:18px;color:#f5f5f6;font-family:Arial,Tahoma,-apple-system,BlinkMacSystemFont,sans-serif}
+.recent-trades-content::-webkit-scrollbar{display:none}
+.recent-trades-content h2{text-align:center;font-size:14px;line-height:19px;font-weight:700;color:#cbcbce;margin:2px 0 11px}
+.recent-group{margin:17px 0 0}
+.recent-open-group{margin-top:0}
+.recent-group-heading{display:flex;align-items:center;justify-content:space-between;min-height:20px;margin:0 1px 10px;font-size:13px;line-height:19px;gap:4px}
+.recent-group-heading>div{white-space:nowrap}
+.recent-group-heading strong{font-weight:700}
+.recent-group-heading span{color:#7f8285;font-size:12px;font-weight:600}
+.recent-group-heading>b{font-size:14px;font-weight:700}
+.recent-trade-card{background:#303134;border-radius:21px;overflow:hidden;padding:0 15px}
+.recent-trade-row{display:flex;align-items:center;gap:12px;min-height:65px;padding:12px 0;border-bottom:1px solid #3b3c3f}
+.recent-trade-row:only-child{min-height:76px}
+.recent-trade-row:last-child{border-bottom:0}
+.recent-direction{width:42px;height:42px;flex-shrink:0;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#505154;color:#fafafa}
+.recent-asset{min-width:0;flex:1;text-align:right;display:flex;flex-direction:column;gap:3px}
+.recent-asset>strong{font-size:14px;line-height:18px;font-weight:700;white-space:nowrap}
+.recent-detail{display:flex;justify-content:flex-start;align-items:center;gap:0;color:#85898b;font-size:12px;line-height:16px;white-space:pre;direction:rtl}
+.recent-countdown{color:#c3c5c7}
+.recent-outcome{display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-align:left;flex-shrink:0;min-width:57px;direction:ltr}
+.recent-outcome>strong{font-size:14px;line-height:18px;font-weight:700}
+.recent-open{color:#a3d6f6}
+.recent-time{display:flex;direction:rtl;gap:3px;color:#85898b;font-size:12px;line-height:16px}
+.recent-profit{color:#79d6ad!important}
+@media(max-width:370px){.sheet--recent-trades .recent-trade-row{gap:10px}.sheet--recent-trades .recent-trade-card{padding:0 13px}.sheet--recent-trades .recent-detail{font-size:11px}}

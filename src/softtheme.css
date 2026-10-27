@@ -1,0 +1,104 @@
+/* التصميم الفاتح الناعم للشاشة الرئيسية: أسطح بارزة، ظلال خفيفة، أزرار دائرية.
+   كل القواعد مقيّدة بـ .device-shell حتى تتغلب على القواعد الداكنة في style.css دون تعديلها. */
+:root{
+  --soft-bg:#eaf0f9;
+  --soft-bg2:#f4f7fc;
+  --soft-ink:#17203a;
+  --soft-ink2:#5d6987;
+  --soft-ink3:#8a94aa;
+  --soft-blue:#1a7df0;
+  --soft-up:#1fb07f;
+  --soft-down:#ee4a55;
+  --soft-hi:#ffffff;
+  --soft-lo:#c6d0e4;
+  --soft-raise:6px 6px 14px rgba(177,190,216,.62),-6px -6px 14px rgba(255,255,255,.95);
+  --soft-raise-sm:4px 4px 10px rgba(177,190,216,.6),-4px -4px 10px rgba(255,255,255,.95);
+  --soft-inset:inset 3px 3px 7px rgba(177,190,216,.55),inset -3px -3px 7px rgba(255,255,255,.95);
+}
+html,body{background:var(--soft-bg)}
+.device-shell:not(.account-open){background:linear-gradient(180deg,#f3f6fc 0%,var(--soft-bg) 100%)}
+
+.device-shell .trading-app{color:var(--soft-ink);padding-bottom:calc(104px + var(--safe))}
+
+/* الهيدر */
+.device-shell .account-header{height:66px;border-bottom:0;padding:12px 16px 6px}
+.device-shell .deposit-pill{display:flex;align-items:center;justify-content:center;gap:8px;height:42px;min-width:98px;padding:0 16px;border-radius:26px;background:linear-gradient(180deg,#fff,#eef3fb);color:var(--soft-ink);font-size:14px;font-weight:650;box-shadow:var(--soft-raise)}
+.device-shell .balance-display small{color:var(--soft-ink2);font-size:10.5px;white-space:nowrap}
+.device-shell .balance-display strong{color:var(--soft-ink);font-size:18px;font-weight:700}
+.device-shell .account-modes{padding:4px;border:0;border-radius:26px;background:var(--soft-bg2);box-shadow:var(--soft-inset)}
+.device-shell .account-modes button{padding:8px 15px;font-size:13px;font-weight:600;color:var(--soft-ink2);border-radius:20px}
+.device-shell .account-modes .selected-real,
+.device-shell .account-modes .selected-demo{background:linear-gradient(180deg,#38a4ff,#1478f0);color:#fff;box-shadow:0 5px 12px rgba(20,120,240,.38)}
+
+/* شريط الأدوات */
+.device-shell .trade-toolbar{padding:10px 14px 8px;gap:9px}
+.device-shell .circle{flex:none;width:44px;height:44px;background:linear-gradient(180deg,#fff,#eef3fb);color:var(--soft-ink);box-shadow:var(--soft-raise-sm)}
+.device-shell .trade-toolbar .sound{width:40px;height:40px;color:var(--soft-ink2);margin-right:auto}
+.device-shell .pair-select{min-height:52px;min-width:208px;flex:0 1 auto;border-radius:28px;background:linear-gradient(180deg,#fff,#eef3fb);color:var(--soft-ink);box-shadow:var(--soft-raise)}
+.device-shell .pair-select strong{font-size:14px;font-weight:650;color:var(--soft-ink)}
+.device-shell .pair-select small{font-size:12px}
+.device-shell .positive{color:#12a672}
+.device-shell .negative{color:var(--soft-down)}
+.device-shell .pair-flag.text-flag{background:#e8eefa;color:#8a6a1f}
+
+/* بطاقة الشارت */
+.device-shell .chart{margin:2px 12px 0;border-radius:28px;background:#fbfdff;box-shadow:var(--soft-raise);border:1px solid rgba(255,255,255,.9)}
+.device-shell .feed-status{background:rgba(255,255,255,.82);color:var(--soft-ink3);border-radius:8px}
+.device-shell .feed-status.live{color:#12a672}
+.device-shell .feed-status.otc{color:#a8852f}
+.device-shell .feed-status.error,.device-shell .feed-status.stale{color:#d6603f}
+.device-shell .indicator-legend{color:var(--soft-ink2)}
+.device-shell .open-position{background:#fff6dc;border-color:#e6c36a;color:#8a6a1f}
+.device-shell .drawing-label{background:#eef3fb;color:var(--soft-ink)}
+.device-shell .chart-live-btn{background:linear-gradient(180deg,#38a4ff,#1478f0);color:#fff;box-shadow:0 8px 18px rgba(20,120,240,.4)}
+
+/* لوحة الصفقة */
+.device-shell .trade-controls{margin:14px 12px 0;padding:14px 12px 10px;border-radius:30px;background:linear-gradient(180deg,#f8faff,#edf2fa);box-shadow:var(--soft-raise)}
+.device-shell .amount-step{height:50px;padding:5px;background:var(--soft-bg2);box-shadow:var(--soft-inset);border-radius:30px}
+.device-shell .step-circle{width:40px;height:40px;background:linear-gradient(180deg,#fff,#edf2fa);color:var(--soft-ink);box-shadow:var(--soft-raise-sm)}
+.device-shell .amount-value{font-size:19px;font-weight:700;color:var(--soft-ink)}
+.device-shell .duration-pill{display:flex;align-items:center;justify-content:center;gap:8px;min-width:96px;height:50px;border:0;border-radius:30px;background:linear-gradient(180deg,#fff,#eef3fb);color:var(--soft-ink);font-size:15px;font-weight:650;padding:0 14px;box-shadow:var(--soft-raise-sm)}
+.device-shell .input-captions{color:var(--soft-ink2);font-size:13px;font-weight:600;padding:9px 8px 10px}
+.device-shell .direction-buttons{gap:10px}
+.device-shell .direction-buttons button{display:flex;align-items:center;justify-content:center;gap:10px;height:50px;border-radius:30px;font-size:17px;font-weight:700;color:#fff}
+.device-shell .direction-buttons .up,
+.device-shell .trade-controls .direction-buttons .up{background:linear-gradient(180deg,#43cfa1,#16a073);box-shadow:0 10px 20px rgba(31,176,127,.34),inset 0 1px 1px rgba(255,255,255,.45)}
+.device-shell .direction-buttons .down,
+.device-shell .trade-controls .direction-buttons .down{background:linear-gradient(180deg,#ff808a,#ec4250);box-shadow:0 10px 20px rgba(238,74,85,.32),inset 0 1px 1px rgba(255,255,255,.45)}
+.device-shell .payout-note{color:var(--soft-ink2);font-size:13px;padding-top:11px}
+.device-shell .payout-note b{color:var(--soft-blue);font-weight:650}
+.device-shell .local-disclosure{color:var(--soft-ink3);font-size:10px}
+
+/* شريط التنقل السفلي: بطاقة عائمة */
+.device-shell .bottom-nav{bottom:calc(12px + var(--safe));width:calc(100% - 24px);max-width:406px;height:78px;padding:10px 10px;border:1px solid rgba(255,255,255,.95);border-radius:36px;background:linear-gradient(180deg,#fbfcff,#eef3fb);box-shadow:0 14px 32px rgba(158,173,205,.55),inset 0 1px 0 #fff;backdrop-filter:none}
+.device-shell .bottom-nav button{color:var(--soft-ink2);font-weight:550}
+.device-shell .bottom-nav button.active{color:var(--soft-ink)}
+.device-shell .bottom-nav button.active svg{filter:none}
+.device-shell .bottom-nav button.active .nav-original-icon{filter:drop-shadow(0 2px 4px rgba(23,32,58,.25))}
+
+/* الإشعارات */
+.device-shell .toast{background:#ffffffef;color:var(--soft-ink);border:1px solid #fff;box-shadow:0 12px 30px rgba(158,173,205,.6)}
+
+@media(max-height:650px){
+  .device-shell .account-header{height:56px}
+  .device-shell .trade-controls .direction-buttons button,
+  .device-shell .direction-buttons button{height:46px}
+  .device-shell .bottom-nav{height:64px}
+  .device-shell .trading-app{padding-bottom:calc(86px + var(--safe))}
+}
+
+/* القوائم المنزلقة والصفحات: خلفية خفيفة، ومساحة تحت الشريط العائم، وأزرار بارزة */
+.device-shell .modal-layer{padding-bottom:calc(98px + var(--safe))}
+.device-shell .modal-layer .backdrop{background:rgba(23,32,58,.26)}
+.device-shell .bottom-sheet{max-height:calc(100dvh - 112px - var(--safe));border-color:#fff;box-shadow:0 -10px 30px rgba(158,173,205,.45)}
+.device-shell .sheet-handle{background:#c6d0e4}
+.device-shell .primary{background:linear-gradient(180deg,#2c3862,#17203a);color:#fff;box-shadow:0 8px 18px rgba(23,32,58,.28),inset 0 1px 0 rgba(255,255,255,.18)}
+.device-shell .amount-content>.primary{background:linear-gradient(180deg,#2c3862,#17203a);color:#fff}
+.device-shell .secondary{background:linear-gradient(180deg,#fff,#eef3fb);color:var(--soft-ink);box-shadow:var(--soft-raise-sm)}
+.device-shell .card,
+.device-shell .ac-card{box-shadow:var(--soft-raise-sm)}
+.device-shell .number-pad button{background:linear-gradient(180deg,#fff,#f1f5fb);box-shadow:var(--soft-raise-sm);color:var(--soft-ink)}
+.device-shell .duration-presets button{box-shadow:var(--soft-raise-sm);background:linear-gradient(180deg,#fff,#f1f5fb)}
+.device-shell .duration-presets .active{background:linear-gradient(180deg,#2c3862,#17203a);color:#fff}
+.device-shell .ac-simulation-balance{background:#e3f6ee;color:#0f7a56}
+.device-shell .ac-simulation-balance strong{color:#0b6a4a}

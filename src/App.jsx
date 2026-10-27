@@ -32,6 +32,7 @@ import RecentTrades from './RecentTrades';
 import AssetPicker, { REFERENCE_ASSETS } from './AssetPicker';
 import './assetpicker.css';
 import './style.css';
+import './softtheme.css';
 import {
   reconcileDeposits,
   decideLocalRequest,
@@ -48,12 +49,13 @@ REFERENCE_ASSETS.forEach(a => {
 });
 
 const initialSettings = {
+  soft: true,
   type: 'candles',
   color: '#f0b04b',
-  upColor: '#00b883',
-  downColor: '#df4c42',
-  background: '#121216',
-  grid: false,
+  upColor: '#1fb07f',
+  downColor: '#ee4a55',
+  background: '#fbfdff',
+  grid: true,
   crosshair: true,
   social: false,
   autoZoom: true,
@@ -112,6 +114,11 @@ function App() {
   const [settings, setSettings] = useState(() => ({
     ...initialSettings,
     ...load('cue-trade-chart', {}),
+    /* التصميم الفاتح الناعم: يستبدل ألوان الثيم الداكن المحفوظة سابقاً */
+    soft: true,
+    ...(load('cue-trade-chart', {}).background === '#121216' || !load('cue-trade-chart', {}).background
+      ? { background: initialSettings.background, upColor: initialSettings.upColor, downColor: initialSettings.downColor, grid: true }
+      : {}),
     ...(['line', 'area', 'bar', 'candles'].includes(previewParams.get('type'))
       ? { type: previewParams.get('type') }
       : {})
@@ -431,6 +438,7 @@ function App() {
       <main className={'trading-app ' + (page ? 'behind-sheet' : '')}>
         <header className="account-header">
           <button className="deposit-pill transition-transform active:scale-95" onClick={() => navigate('deposit')}>
+            <svg className="deposit-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M14 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4"/><path d="M4 12h10M10 8l4 4-4 4"/></svg>
             إيداع
           </button>
           <button className="balance-display" onClick={() => navigate('wallet')} aria-label="الرصيد">
@@ -543,6 +551,7 @@ function App() {
                 navigate('duration');
               }}
             >
+              <Clock size={19} />
               {String(Math.floor(duration / 60)).padStart(2, '0')}:{String(duration % 60).padStart(2, '0')}
             </button>
           </div>
@@ -553,9 +562,11 @@ function App() {
           <div className="direction-buttons" dir="ltr">
             <button className="up" onClick={() => trade('up')}>
               أعلى
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
             </button>
             <button className="down" onClick={() => trade('down')}>
               أسفل
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
             </button>
           </div>
           <p className="payout-note">

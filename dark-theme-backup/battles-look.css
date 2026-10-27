@@ -1,0 +1,69 @@
+‎/* المعارك: بطاقة Social Sprint + المعارك المفتوحة */
+@keyframes spShine{0%,100%{opacity:.35}50%{opacity:.85}}
+@keyframes spFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes spGrow{from{height:0}to{height:var(--h)}}
+@keyframes spPop{from{opacity:0;transform:translateY(10px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes spGlow{0%,100%{box-shadow:0 8px 26px rgba(59,99,240,.45)}50%{box-shadow:0 8px 34px rgba(59,99,240,.75)}}
+
+.rewards .rewards-battle-card.social{position:relative;overflow:hidden;border-radius:24px;background:#2d2e35;border:1px solid #3a3b43;padding:16px 18px 18px;text-align:right}
+.rewards .rewards-battle-card.social .battle-card-original-art{display:none!important}
+.rewards .rewards-battle-card.social .rewards-ribbon{position:absolute;top:30px;left:-44px;right:auto;width:170px;height:26px;background:#3b63f0;color:#fff;transform:rotate(-45deg);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;padding:0;border-radius:0}
+.rewards .rewards-battle-card.social h3{margin:0;font-size:26px;font-weight:700;text-align:right;direction:ltr}
+.rewards .sp-sub{font-size:13px;color:#8b8c97;margin-top:4px;text-align:right}
+.rewards .sp-split{text-align:center;font-size:13px;color:#8b8c97;margin-top:10px}
+.rewards .sp-stage{position:relative;height:190px;margin-top:2px}
+.rewards .sp-rays{position:absolute;left:50%;top:6px;width:240px;height:240px;margin-left:-120px;background:repeating-conic-gradient(rgba(70,100,220,.28) 0 6deg,transparent 6deg 16deg);border-radius:50%;-webkit-mask-image:radial-gradient(circle,#000 10%,transparent 62%);mask-image:radial-gradient(circle,#000 10%,transparent 62%);animation:spShine 3s ease-in-out infinite}
+.rewards .sp-trophy{position:absolute;left:50%;top:10px;margin-left:-15px;color:#f0bd5e;animation:spFloat 2.6s ease-in-out infinite}
+.rewards .sp-50{position:absolute;left:50%;top:44px;width:80px;margin-left:-40px;text-align:center;font-size:24px;font-weight:700;color:#f0bd5e}
+.rewards .sp-col{position:absolute;bottom:0;text-align:center}
+.rewards .sp-col em{display:block;font-style:normal;font-size:20px;font-weight:700;margin-bottom:4px}
+.rewards .sp-bar{box-sizing:border-box;height:0;display:flex;align-items:flex-start;justify-content:center;font-weight:700;border-bottom:0;animation:spGrow .9s cubic-bezier(.2,.9,.25,1) both}
+.rewards .sp-c3{left:14px;width:84px}.rewards .sp-c3 em{color:#c98a5a}
+.rewards .sp-c3 .sp-bar{--h:46px;border-radius:10px 10px 0 0;background:linear-gradient(#4a3a2c,#2f2a27);border:1px solid #5a4630;padding-top:8px;font-size:14px;color:#c98a5a;animation-delay:.25s}
+.rewards .sp-c1{left:50%;margin-left:-47px;width:94px}
+.rewards .sp-c1 .sp-bar{--h:92px;border-radius:12px 12px 0 0;background:linear-gradient(#5b4a2a,#2f2a27);border:1px solid #7a6030;padding-top:10px;font-size:15px;color:#e0b25a}
+.rewards .sp-c2{right:14px;width:84px}.rewards .sp-c2 em{color:#d6d7de}
+.rewards .sp-c2 .sp-bar{--h:66px;border-radius:10px 10px 0 0;background:linear-gradient(#41424a,#2b2c32);border:1px solid #55565f;padding-top:8px;font-size:14px;color:#a8a9b3;animation-delay:.12s}
+.rewards .sp-mystery{text-align:center;font-size:14px;color:#8b8c97;margin-top:8px}
+.rewards .sp-foot{display:flex;align-items:center;justify-content:space-between;margin-top:14px}
+.rewards .sp-foot strong{font-size:15px;font-weight:700;color:#5bc673}
+.rewards .sp-avs{display:flex;align-items:center}
+.rewards .sp-avs i{width:34px;height:34px;border-radius:50%;border:2px solid #2d2e35;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;font-style:normal;color:#fff}
+.rewards .sp-avs i:nth-child(1){background:#a3447a}
+.rewards .sp-avs i:nth-child(2){background:#4a5a8a;margin-right:-10px}
+.rewards .sp-avs i:nth-child(3){background:#3d4a78;margin-right:-10px}
+.rewards .sp-avs b{margin-right:10px;font-size:14px;font-weight:700}
+.rewards .rewards-battle-card.social .sp-join{width:100%;display:block;margin-top:14px;height:56px;border-radius:28px;border:0;background:#3b63f0;color:#fff;font-size:17px;font-weight:700;animation:spGlow 2.4s ease-in-out infinite;transition:transform .13s}
+.rewards .rewards-battle-card.social .sp-join:active{transform:scale(.96)}
+
+‎/* معارك مفتوحة */
+.rewards .rewards-open-battle{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:18px;background:#2f3037;animation:spPop .45s cubic-bezier(.2,.9,.25,1) both}
+.rewards .rewards-open-battle:nth-child(2){animation-delay:.08s}
+.rewards .rewards-open-battle .battle-owner-tag{flex:none;background:#3a3550;color:#b9a2ff;font-weight:700;font-size:14px;padding:6px 12px;border-radius:10px;letter-spacing:.5px}
+.rewards .rewards-open-battle .gold-points{color:#e8b45c;font-weight:700;font-size:15px}
+.rewards .rewards-open-battle button{background:#8b5cf6;color:#fff;font-size:15px;font-weight:700;border:0;border-radius:20px;height:40px;padding:0 20px;transition:transform .13s}
+.rewards .rewards-open-battle button:active{transform:scale(.94)}
+
+‎/* ===== إصلاحات التعارض مع rewards.css (البطاقة الأصلية مبنية على صورة وتخفي العناصر) ===== */
+.rewards .rewards-battle-card.social{aspect-ratio:auto!important;height:auto!important;min-height:0!important;padding:16px 18px 18px!important;background:#2d2e35!important;border:1px solid #3a3b43!important;border-radius:24px!important}
+.rewards .rewards-battle-card.social>.rewards-ribbon{opacity:1!important;pointer-events:auto;position:absolute!important;z-index:2}
+.rewards .rewards-battle-card.social>h3{opacity:1!important;position:relative!important;pointer-events:auto;margin:0!important}
+.rewards .rewards-battle-card.social>.sp-sub,.rewards .rewards-battle-card.social>.sp-split,.rewards .rewards-battle-card.social>.sp-stage,.rewards .rewards-battle-card.social>.sp-mystery,.rewards .rewards-battle-card.social>.sp-foot{opacity:1!important;position:relative!important}
+.rewards .rewards-battle-card.social>.sp-join{position:relative!important;inset:auto!important;right:auto!important;left:auto!important;bottom:auto!important;width:100%!important;height:56px!important;margin-top:14px!important;border-radius:28px!important;background:#3b63f0!important;z-index:1}
+.rewards .sp-stage{height:190px!important}
+
+‎/* معارك مفتوحة: زر انضم ما يطلع برا الشكل */
+.rewards .rewards-open-battle{display:flex!important;grid-template-columns:none!important}
+.rewards .rewards-open-battle>.battle-owner-tag{flex:none;font-size:13px!important;padding:6px 12px!important;border-radius:10px!important;background:#3a3550!important;color:#b9a2ff!important}
+.rewards .rewards-open-battle>.battle-open-meta{flex:1;min-width:0;text-align:center}
+.rewards .rewards-open-battle>.gold-points{flex:none;font-size:15px!important;white-space:nowrap}
+.rewards .rewards-open-battle>button{flex:none!important;width:auto!important;min-width:78px;height:40px;padding:0 18px!important;display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;font-size:15px!important;border-radius:20px!important;background:#8b5cf6!important}
+
+‎/* ===== صف المعركة المفتوحة: ترتيب نظيف بدون خروج عن الإطار ===== */
+.rewards .rewards-open-battle{display:grid!important;grid-template-columns:auto minmax(0,1fr) auto auto!important;align-items:center;gap:8px!important;padding:12px!important;overflow:hidden;box-sizing:border-box}
+.rewards .rewards-open-battle>.battle-owner-tag{font-size:12px!important;padding:5px 9px!important;justify-self:start}
+.rewards .rewards-open-battle>.battle-open-meta{min-width:0;text-align:center}
+.rewards .rewards-open-battle>.battle-open-meta>b{font-size:12px!important;font-weight:600}
+.rewards .rewards-open-battle>.battle-open-meta small{white-space:normal!important;font-size:10.5px!important;margin-top:2px}
+.rewards .rewards-open-battle>.gold-points{font-size:13px!important;justify-self:center}
+.rewards .rewards-open-battle>button{min-width:62px!important;height:36px!important;padding:0 14px!important;font-size:13px!important;justify-self:end}
