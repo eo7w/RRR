@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UMEX — منصة التداول الذكية</title>
+<link rel="icon" type="image/png" href="assets/img/logos/favicon-32x32.png">
+<meta name="description" content="UMEX منصة تداول متعددة الأصول: أسهم، عملات، سلع، وعملات رقمية. أمان مصرفي، سرعة تنفيذ، وبرنامج ولاء UPoints.">
+<style>
+:root{
+  --bg:#131317;
+  --bg-2:#1a1b20;
+  --card:#202126;
+  --card-2:#1f2a37;
+  --border:rgba(255,255,255,.08);
+  --border-strong:rgba(255,255,255,.16);
+  --text:#ffffff;
+  --muted:#adb5c8;
+  --muted-2:#c2c8d6;
+  --muted-3:#707e9f;
+  --blue:#35a7ff;
+  --blue-deep:#3164ff;
+  --green:#13bf7d;
+  --green-2:#16d78d;
+  --red:#ff595c;
+  --red-2:#ff7d80;
+  --orange:#f7a741;
+  --gold:#ffc414;
+  --purple:#9662ff;
+  --radius:14px;
+  --radius-sm:10px;
+  --font:"Segoe UI", Tahoma, system-ui, -apple-system, "Helvetica Neue", Roboto, Arial, sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font);
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+.num{direction:ltr;unicode-bidi:isolate;font-variant-numeric:tabular-nums}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+section{padding:88px 0;position:relative}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  color:var(--blue);font-size:13px;font-weight:600;letter-spacing:.5px;
+  background:rgba(53,167,255,.1);border:1px solid rgba(53,167,255,.25);
+  padding:6px 14px;border-radius:999px;margin-bottom:18px;
+}
+.eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 10px var(--blue)}
+h2.section-title{font-size:clamp(28px,4vw,40px);font-weight:800;line-height:1.25;margin-bottom:14px}
+.section-sub{color:var(--muted);font-size:16px;max-width:640px;margin-bottom:44px}
+.grad-text{background:linear-gradient(90deg,#61baff,var(--blue) 40%,var(--blue-deep));-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* ===== NAVBAR ===== */
+.navbar{
+  position:fixed;top:0;right:0;left:0;z-index:100;
+  background:rgba(19,19,23,.85);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;letter-spacing:.5px}
+.brand img{width:34px;height:34px;border-radius:8px}
+.brand span{background:linear-gradient(90deg,#fff,#c2c8d6);-webkit-background-clip:text;background-clip:text;color:transparent}
+.nav-links{display:flex;gap:6px;align-items:center}
+.nav-links a{
+  padding:8px 16px;border-radius:8px;color:var(--muted-2);font-size:14.5px;font-weight:500;
+  transition:color .2s, background .2s;
+}
+.nav-links a:hover{color:#fff;background:rgba(255,255,255,.06)}
+.nav-cta{display:flex;gap:10px;align-items:center}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:10px 22px;border-radius:10px;font-weight:700;font-size:14.5px;
+  transition:transform .15s, box-shadow .2s, background .2s;white-space:nowrap;
+}
+.btn-primary{background:linear-gradient(135deg,var(--blue),var(--blue-deep));color:#fff;box-shadow:0 6px 20px rgba(49,100,255,.35)}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 10px 26px rgba(49,100,255,.5)}
+.btn-ghost{background:rgba(255,255,255,.06);border:1px solid var(--border-strong);color:#fff}
+.btn-ghost:hover{background:rgba(255,255,255,.12)}
+.btn-gold{background:linear-gradient(135deg,#ffc414,#f69a26);color:#1a1200;box-shadow:0 6px 20px rgba(246,154,38,.35)}
+.menu-toggle{display:none;flex-direction:column;gap:5px;padding:8px}
+.menu-toggle span{width:22px;height:2px;background:#fff;border-radius:2px;transition:.3s}
+
+/* ===== HERO ===== */
+.hero{
+  padding:140px 0 80px;position:relative;overflow:hidden;
+  background:
+    radial-gradient(ellipse 80% 55% at 75% -10%, rgba(49,100,255,.22), transparent 60%),
+    radial-gradient(ellipse 60% 45% at 15% 10%, rgba(53,167,255,.14), transparent 60%),
+    var(--bg);
+}
+.hero::before{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.35;
+  background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:44px 44px;
+  mask-image:radial-gradient(ellipse 70% 60% at 50% 30%,#000 30%,transparent 75%);
+  -webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 30%,#000 30%,transparent 75%);
+}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;position:relative;z-index:2}
+.hero h1{font-size:clamp(34px,5.2vw,56px);font-weight:800;line-height:1.18;margin-bottom:20px}
+.hero p.lead{color:var(--muted);font-size:17px;max-width:520px;margin-bottom:30px}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:44px}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:560px}
+.stat-card{
+  background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:16px 14px;text-align:center;
+}
+.stat-card .v{font-size:24px;font-weight:800;color:#fff}
+.stat-card .v.up{color:var(--green-2)}
+.stat-card .l{font-size:12.5px;color:var(--muted-3);margin-top:4px}
+/* hero chart panel */
+.chart-panel{
+  background:linear-gradient(180deg,var(--bg-2),#17181d);
+  border:1px solid var(--border);border-radius:18px;padding:20px;
+  box-shadow:0 30px 80px rgba(0,0,0,.5);position:relative;
+}
+.chart-panel .cp-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.cp-pair{display:flex;align-items:center;gap:10px}
+.cp-pair img{width:34px;height:34px;border-radius:50%}
+.cp-pair .name{font-weight:700;font-size:15px}
+.cp-pair .sub{font-size:12px;color:var(--muted-3)}
+.cp-price{text-align:left}
+.cp-price .p{font-size:22px;font-weight:800}
+.cp-price .chg{font-size:12.5px;font-weight:700}
+.chg.up{color:var(--green-2)}
+.chg.down{color:var(--red-2)}
+#heroChart{width:100%;height:240px}
+.chart-fallback{width:100%;height:240px;display:block}
+.cp-ticks{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.cp-ticks span{font-size:11.5px;color:var(--muted-3);background:rgba(255,255,255,.05);padding:4px 10px;border-radius:6px;border:1px solid var(--border)}
+
+/* ===== MARKETS ===== */
+.markets{background:linear-gradient(180deg,var(--bg),#101014 50%,var(--bg))}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.tab-btn{
+  padding:9px 20px;border-radius:999px;font-size:14px;font-weight:600;color:var(--muted);
+  background:var(--bg-2);border:1px solid var(--border);transition:.2s;
+}
+.tab-btn:hover{color:#fff;border-color:var(--border-strong)}
+.tab-btn.active{
+  color:#fff;background:linear-gradient(135deg,var(--blue),var(--blue-deep));
+  border-color:transparent;box-shadow:0 4px 14px rgba(49,100,255,.35);
+}
+.market-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+/* featured gold live widget */
+.gold-feature{
+  display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center;
+  background:linear-gradient(135deg,rgba(247,167,65,.10),rgba(255,196,20,.04) 50%,var(--bg-2));
+  border:1px solid rgba(247,167,65,.35);border-radius:18px;padding:22px 26px;margin-bottom:26px;
+  position:relative;overflow:hidden;
+}
+.gold-feature::after{
+  content:"";position:absolute;top:-40%;left:-10%;width:320px;height:320px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,196,20,.14),transparent 70%);pointer-events:none;
+}
+.gold-left{display:flex;align-items:center;gap:14px;position:relative;z-index:2}
+.gold-left img{width:52px;height:52px;border-radius:50%;background:#0e0f12;border:1px solid rgba(255,196,20,.3)}
+.gold-left .nm{font-weight:800;font-size:18px}
+.gold-left .ds{font-size:12.5px;color:var(--muted-3)}
+.gold-mid{position:relative;z-index:2;min-width:0}
+.gold-price-row{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.gold-price{font-size:34px;font-weight:800;letter-spacing:.5px;color:var(--gold)}
+.gold-chg{font-size:15px;font-weight:700;padding:4px 10px;border-radius:8px}
+.gold-chg.up{color:#5fe8b0;background:rgba(19,191,125,.14);border:1px solid rgba(19,191,125,.35)}
+.gold-chg.down{color:#ff9a9c;background:rgba(255,89,92,.14);border:1px solid rgba(255,89,92,.35)}
+.gold-hilo{font-size:12.5px;color:var(--muted-3);margin-top:6px}
+.gold-right{position:relative;z-index:2;text-align:left}
+#goldSpark{width:220px;height:64px;display:block}
+.gold-badge{
+  display:inline-flex;align-items:center;gap:6px;margin-top:8px;font-size:11.5px;font-weight:600;
+  padding:4px 10px;border-radius:999px;cursor:pointer;transition:.2s;border:1px solid;
+}
+.gold-badge.live{color:#5fe8b0;background:rgba(19,191,125,.12);border-color:rgba(19,191,125,.35)}
+.gold-badge.sim{color:var(--orange);background:rgba(247,167,65,.12);border-color:rgba(247,167,65,.35)}
+.gold-badge .pulse{width:7px;height:7px;border-radius:50%;background:currentColor;animation:blink 1.4s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.market-source{margin-top:22px;font-size:12.5px;color:var(--muted-3);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.market-source a{color:var(--blue);text-decoration:underline;text-underline-offset:3px}
+@media (max-width:760px){
+  .gold-feature{grid-template-columns:1fr;gap:16px}
+  .gold-right{text-align:right}
+  #goldSpark{width:100%;height:70px}
+}
+.pair-card{
+  background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius);
+  padding:16px;transition:transform .2s, border-color .2s, background .2s;
+  display:flex;flex-direction:column;gap:12px;
+}
+.pair-card:hover{transform:translateY(-3px);border-color:rgba(53,167,255,.4);background:#23242a}
+.pair-top{display:flex;align-items:center;gap:10px}
+.pair-top img{width:36px;height:36px;border-radius:50%;background:#0e0f12}
+.pair-top .sym{font-weight:700;font-size:15px}
+.pair-top .cat{font-size:11.5px;color:var(--muted-3)}
+.pair-mid{display:flex;justify-content:space-between;align-items:flex-end}
+.pair-price .p{font-size:20px;font-weight:800}
+.pair-price .chg{font-size:13px;font-weight:700;margin-top:2px}
+.spark{width:110px;height:40px}
+.pair-card.flash-up{animation:flashUp .8s ease}
+.pair-card.flash-down{animation:flashDown .8s ease}
+@keyframes flashUp{0%{box-shadow:inset 0 0 0 2px rgba(19,191,125,.6)}100%{box-shadow:inset 0 0 0 2px transparent}}
+@keyframes flashDown{0%{box-shadow:inset 0 0 0 2px rgba(255,89,92,.6)}100%{box-shadow:inset 0 0 0 2px transparent}}
+
+/* ===== FEATURES ===== */
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px}
+.feature-card{
+  background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius);
+  padding:26px 22px;transition:transform .2s, border-color .2s;
+}
+.feature-card:hover{transform:translateY(-3px);border-color:rgba(53,167,255,.35)}
+.feature-icon{
+  width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+  background:rgba(53,167,255,.12);border:1px solid rgba(53,167,255,.25);margin-bottom:16px;
+}
+.feature-icon svg{width:24px;height:24px;stroke:var(--blue);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.feature-card h3{font-size:17px;font-weight:700;margin-bottom:8px}
+.feature-card p{color:var(--muted);font-size:14px}
+.security-strip{
+  margin-top:40px;display:flex;align-items:center;justify-content:center;gap:36px;flex-wrap:wrap;
+  background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;
+}
+.security-strip .lbl{color:var(--muted-3);font-size:13px;font-weight:600}
+.security-strip img{height:34px;width:auto;filter:brightness(1.1)}
+.kyc-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:18px}
+.kyc-item{
+  background:#17181d;border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:12px;text-align:center;
+}
+.kyc-item img{width:100%;height:90px;object-fit:cover;border-radius:8px;margin-bottom:8px}
+.kyc-item .t{font-size:12.5px;color:var(--muted-2);font-weight:600}
+.upoints-banner{
+  margin-top:40px;display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center;
+  background:linear-gradient(135deg,rgba(247,167,65,.12),rgba(255,196,20,.06));
+  border:1px solid rgba(247,167,65,.3);border-radius:var(--radius);padding:26px 28px;
+}
+.upoints-banner img{width:72px;height:72px;animation:float 3.5s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.upoints-banner h3{font-size:20px;font-weight:800;margin-bottom:6px;color:var(--gold)}
+.upoints-banner p{color:var(--muted-2);font-size:14.5px}
+
+/* ===== LOYALTY / ACHIEVEMENTS ===== */
+.vip-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:56px}
+.vip-card{
+  border-radius:var(--radius);padding:22px 18px;border:1px solid var(--border);
+  background:var(--bg-2);position:relative;overflow:hidden;transition:transform .2s;
+}
+.vip-card:hover{transform:translateY(-3px)}
+.vip-card::before{content:"";position:absolute;top:0;right:0;left:0;height:3px;background:var(--vc,#888)}
+.vip-card .tier{font-size:12px;color:var(--muted-3);font-weight:600;margin-bottom:6px}
+.vip-card .name{font-size:19px;font-weight:800;margin-bottom:10px;color:var(--vc,#fff)}
+.vip-card ul{list-style:none;font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:5px}
+.vip-card ul li::before{content:"—";color:var(--vc);margin-left:6px}
+.ach-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.ach-card{
+  background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius);
+  padding:18px 12px;text-align:center;transition:transform .2s, border-color .2s;
+}
+.ach-card:hover{transform:translateY(-4px) scale(1.02);border-color:rgba(255,196,20,.4)}
+.ach-card img{width:84px;height:84px;margin:0 auto 10px;filter:drop-shadow(0 6px 14px rgba(0,0,0,.4))}
+.ach-card .n{font-size:13.5px;font-weight:700}
+.ach-card .d{font-size:11.5px;color:var(--muted-3);margin-top:3px}
+
+/* ===== PROMOS ===== */
+.promo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px}
+.promo-card{
+  border-radius:18px;padding:32px;position:relative;overflow:hidden;min-height:260px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  border:1px solid var(--border);transition:transform .25s;
+}
+.promo-card:hover{transform:translateY(-4px)}
+.promo-mystery{background:linear-gradient(135deg,#1a1530,#241a3d 60%,#131317);border-color:rgba(150,98,255,.35)}
+.promo-riskfree{background:linear-gradient(135deg,#0f2a24,#123a2e 60%,#131317);border-color:rgba(19,191,125,.35)}
+.promo-card .tag{
+  display:inline-block;font-size:12px;font-weight:700;padding:5px 12px;border-radius:999px;
+  margin-bottom:14px;width:fit-content;
+}
+.promo-mystery .tag{background:rgba(150,98,255,.2);color:#c9a8ff;border:1px solid rgba(150,98,255,.4)}
+.promo-riskfree .tag{background:rgba(19,191,125,.15);color:#5fe8b0;border:1px solid rgba(19,191,125,.4)}
+.promo-card h3{font-size:24px;font-weight:800;margin-bottom:8px}
+.promo-card p{color:var(--muted-2);font-size:14.5px;max-width:70%}
+.promo-card .art{position:absolute;bottom:-20px;left:-10px;width:200px;opacity:.95;pointer-events:none}
+
+/* ===== FOOTER ===== */
+footer{
+  background:#0e0f12;border-top:1px solid var(--border);padding:56px 0 28px;margin-top:40px;
+}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:36px;margin-bottom:40px}
+.foot-brand p{color:var(--muted-3);font-size:13.5px;margin-top:12px;max-width:280px}
+.foot-col h4{font-size:14px;font-weight:700;margin-bottom:16px;color:#fff}
+.foot-col a{display:block;color:var(--muted);font-size:13.5px;padding:5px 0;transition:color .2s}
+.foot-col a:hover{color:var(--blue)}
+.foot-security{display:flex;gap:20px;align-items:center;flex-wrap:wrap;padding:22px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:20px}
+.foot-security img{height:30px;width:auto;filter:brightness(1.1);opacity:.9}
+.foot-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;color:var(--muted-3);font-size:12.5px}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width:960px){
+  .hero-grid{grid-template-columns:1fr;gap:36px}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .nav-links{display:none;position:absolute;top:68px;right:0;left:0;background:var(--bg-2);flex-direction:column;padding:16px;gap:4px;border-bottom:1px solid var(--border)}
+  .nav-links.open{display:flex}
+  .menu-toggle{display:flex}
+  .nav-cta .btn-ghost{display:none}
+  .upoints-banner{grid-template-columns:1fr;text-align:center}
+  .upoints-banner img{margin:0 auto}
+  .promo-card p{max-width:100%}
+}
+@media (max-width:560px){
+  .hero-stats{grid-template-columns:1fr 1fr}
+  .foot-grid{grid-template-columns:1fr}
+  section{padding:64px 0}
+}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease, transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<header class="navbar">
+  <div class="container nav-inner">
+    <a href="#" class="brand">
+      <img src="assets/img/logos/apple-touch-icon.png" alt="UMEX">
+      <span>UMEX</span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#markets">الأسواق</a>
+      <a href="#features">التداول</a>
+      <a href="#loyalty">الولاء</a>
+      <a href="#promos">العروض</a>
+      <a href="#footer">المساعدة</a>
+    </nav>
+    <div class="nav-cta">
+      <button class="btn btn-ghost">تسجيل الدخول</button>
+      <button class="btn btn-primary">إيداع الآن</button>
+      <button class="menu-toggle" id="menuToggle" aria-label="القائمة"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow"><span class="dot"></span>منصة تداول مرخصة ومتعددة الأصول</span>
+      <h1>تداول <span class="grad-text">الأسهم والعملات والسلع</span> من منصة واحدة بسرعة فائقة</h1>
+      <p class="lead">انضم إلى ملايين المتداولين حول العالم. نفاذية سوق حقيقية، تنفيذ فوري، وأمان مصرفي بمعايير PCI DSS. ابدأ التداول من 10 دولارات فقط.</p>
+      <div class="hero-cta">
+        <button class="btn btn-primary">فتح حساب حقيقي</button>
+        <button class="btn btn-ghost">جرّب حساب تجريبي</button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-card"><div class="v num" data-count="1250000" data-suffix="+">0</div><div class="l">متداول نشط</div></div>
+        <div class="stat-card"><div class="v up num" data-count="180" data-prefix="$" data-suffix="B">0</div><div class="l">حجم تداول شهري</div></div>
+        <div class="stat-card"><div class="v num" data-count="12" data-suffix="+">0</div><div class="l">سنوات خبرة</div></div>
+      </div>
+    </div>
+    <div class="chart-panel reveal">
+      <div class="cp-head">
+        <div class="cp-pair">
+          <img src="assets/img/pairs/BTCUSD.png" alt="BTC/USD">
+          <div>
+            <div class="name">بيتكوين / دولار أمريكي</div>
+            <div class="sub">BTCUSD · عملة رقمية</div>
+          </div>
+        </div>
+        <div class="cp-price">
+          <div class="p num" id="heroPrice">67,420.50</div>
+          <div class="chg up num" id="heroChg">+2.34%</div>
+        </div>
+      </div>
+      <div id="heroChart"></div>
+      <svg class="chart-fallback" id="heroFallback" viewBox="0 0 400 240" preserveAspectRatio="none"></svg>
+      <div class="cp-ticks">
+        <span>فوري · 1 دقيقة</span><span>ساعة</span><span>يوم</span><span>أسبوع</span><span>شهر</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MARKETS ===== -->
+<section class="markets" id="markets">
+  <div class="container">
+    <span class="eyebrow reveal"><span class="dot"></span>أسواق عالمية</span>
+    <h2 class="section-title reveal">تداول أكثر من <span class="grad-text">300 أصل</span> من حول العالم</h2>
+    <p class="section-sub reveal">أسهم أمريكية وأوروبية وخليجية، أزواج عملات رئيسية ومتقاطعة، سلع وطاقة، وعملات رقمية — بأسعار لحظية وفروق ضيقة.</p>
+    <div class="tabs reveal" id="marketTabs">
+      <button class="tab-btn active" data-cat="all">الكل</button>
+      <button class="tab-btn" data-cat="stocks">أسهم</button>
+      <button class="tab-btn" data-cat="forex">عملات</button>
+      <button class="tab-btn" data-cat="commodities">سلع</button>
+      <button class="tab-btn" data-cat="crypto">رقمي</button>
+    </div>
+    <!-- Featured live gold widget (BIQUOTE XAUUSD) -->
+    <div class="gold-feature reveal" id="goldFeature">
+      <div class="gold-left">
+        <img src="assets/img/pairs/XAUUSD.png" alt="XAUUSD الذهب">
+        <div>
+          <div class="nm">الذهب / دولار أمريكي <span style="color:var(--muted-3);font-weight:600;font-size:13px">· XAUUSD</span></div>
+          <div class="ds">سلع · OTC · دقة السعر رقمان عشريان · عملة التسعير USD</div>
+        </div>
+      </div>
+      <div class="gold-mid">
+        <div class="gold-price-row">
+          <span class="gold-price num" id="goldPrice">2,984.50</span>
+          <span class="gold-chg up num" id="goldChg">+0.00%</span>
+        </div>
+        <div class="gold-hilo num">أعلى: <span id="goldHigh">—</span> &nbsp;·&nbsp; أدنى: <span id="goldLow">—</span> &nbsp;·&nbsp; آخر تحديث: <span id="goldTime">—</span></div>
+      </div>
+      <div class="gold-right">
+        <svg id="goldSpark" viewBox="0 0 220 64" preserveAspectRatio="none"></svg>
+        <button class="gold-badge sim" id="goldBadge" title="اضغط لإعادة محاولة الاتصال بالمصدر الحقيقي">
+          <span class="pulse"></span><span id="goldBadgeText">بيانات تجريبية — انتظار المصدر</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="market-grid" id="marketGrid"></div>
+    <div class="market-source">
+      <span>مصدر بيانات الذهب الحي:</span>
+      <a href="https://biquote.io" target="_blank" rel="noopener">biquote.io</a>
+      <span>· واجهة: <span class="num">GET /api/quote?symbol=XAUUSD</span> · عند عدم توفر بيانات لحظية، يُعرض سعر محاكى واقعي.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FEATURES ===== -->
+<section id="features">
+  <div class="container">
+    <span class="eyebrow reveal"><span class="dot"></span>لماذا UMEX</span>
+    <h2 class="section-title reveal">أمان وسرعة وشفافية في كل صفقة</h2>
+    <p class="section-sub reveal">بنية تحتية مصرفية، فروع أموال منفصلة، وتشفير كامل للبيانات — حتى تركز فقط على تداولك.</p>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h3>أمان مصرفي من الدرجة الأولى</h3>
+        <p>معاملة مشفرة بتقنية SSL 256-bit، فروع أموال منفصلة في بنوك من الدرجة الأولى، ومراقبة مستمرة على مدار الساعة.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+        <h3>تنفيذ فوري بسرعة البرق</h3>
+        <p>متوسط سرعة تنفيذ أقل من 40 مللي ثانية، بدون requote، وسيولة من كبار مزودي السوق العالميين.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
+        <h3>إيداع وسحب فوري</h3>
+        <p>أكثر من 20 وسيلة دفع: بطاقات Visa/Mastercard، المحافظ الرقمية، التحويلات البنكية. الإيداع فوري والسحب خلال ساعات.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 11h-6M19 8v6"/></svg></div>
+        <h3>تحقق من الهوية بسهولة</h3>
+        <p>إجراء KYC مبسط: ارفع جواز سفرك أو هويتك، إثبات العنوان، وصورة شخصية. تفعيل الحساب خلال دقائق.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <h3>نقاط UPoints على كل صفقة</h3>
+        <p>اكسب نقاط ولاء على كل صفقة مغلقة، واستبدلها بمكافآت نقدية، مستويات VIP أعلى، وهدايا حصرية.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <h3>دعم بالعربية على مدار الساعة</h3>
+        <p>فريق دعم متحدث بالعربية متاح 24/7 عبر المحادثة المباشرة والبريد والهاتف، لمساعدتك في أي وقت.</p>
+      </div>
+    </div>
+
+    <div class="security-strip reveal">
+      <span class="lbl">مدعوم بأمان:</span>
+      <img src="assets/img/security/pci-dss.svg" alt="PCI DSS">
+      <img src="assets/img/security/mastercard-id-check.svg" alt="Mastercard ID Check">
+      <img src="assets/img/security/visa-secure.svg" alt="Visa Secure">
+    </div>
+
+    <div class="reveal" style="margin-top:56px">
+      <h3 style="font-size:22px;font-weight:800;margin-bottom:8px">تحقق سهل من الهوية — 3 خطوات فقط</h3>
+      <p style="color:var(--muted);font-size:14.5px;margin-bottom:6px">أمثلة إرشادية للمستندات المقبولة:</p>
+      <div class="kyc-row">
+        <div class="kyc-item"><img src="assets/img/docs/docs_id_example@2x-CdjRlg-q.png" alt="هوية وطنية"><div class="t">هوية وطنية</div></div>
+        <div class="kyc-item"><img src="assets/img/docs/docs_passport_example@2x-CmAd5j04.png" alt="جواز سفر"><div class="t">جواز سفر</div></div>
+        <div class="kyc-item"><img src="assets/img/docs/docs_card_example@2x-C37yiLc-.png" alt="بطاقة بنكية"><div class="t">بطاقة بنكية</div></div>
+        <div class="kyc-item"><img src="assets/img/docs/docs_utility_example@2x-D_Ed2LwT.png" alt="فاتورة خدمات"><div class="t">فاتورة خدمات</div></div>
+        <div class="kyc-item"><img src="assets/img/docs/docs_bank_statement_example@2x-mGtux0xx.png" alt="كشف حساب"><div class="t">كشف حساب بنكي</div></div>
+        <div class="kyc-item"><img src="assets/img/docs/docs_selfie_example@2x-DuYN3nj8.png" alt="صورة شخصية"><div class="t">صورة شخصية</div></div>
+      </div>
+    </div>
+
+    <div class="upoints-banner reveal">
+      <img src="assets/img/upoints/upoints-coin.png" alt="UPoints">
+      <div>
+        <h3>برنامج UPoints — اكسب على كل صفقة</h3>
+        <p>كل صفقة تمنحك نقاطاً قابلة للاستبدال نقداً أو بمزايا VIP. كلما زاد حجم تداولك، ارتفع مستواك ومضاعف نقاطك.</p>
+      </div>
+      <button class="btn btn-gold">اكتشف المستويات</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LOYALTY / ACHIEVEMENTS ===== -->
+<section id="loyalty" style="background:linear-gradient(180deg,var(--bg),#101014 60%,var(--bg))">
+  <div class="container">
+    <span class="eyebrow reveal"><span class="dot"></span>برنامج الولاء</span>
+    <h2 class="section-title reveal">مستويات VIP وإنجازات تفتح مكافآت حقيقية</h2>
+    <p class="section-sub reveal">اصعد المستويات من البرونز إلى الماس، واكشف إنجازات حصرية مع كل إنجاز تصل إليه في رحلتك التداولية.</p>
+
+    <div class="vip-row reveal">
+      <div class="vip-card" style="--vc:#cd7f32"><div class="tier">المستوى 1</div><div class="name">برونزي</div><ul><li>مضاعف نقاط ×1</li><li>دعم قياسي</li><li>سحب حتى 24 ساعة</li></ul></div>
+      <div class="vip-card" style="--vc:#c0c8d6"><div class="tier">المستوى 2</div><div class="name">فضي</div><ul><li>مضاعف نقاط ×1.5</li><li>مدير حساب</li><li>سحب سريع 4 ساعات</li></ul></div>
+      <div class="vip-card" style="--vc:#ffc414"><div class="tier">المستوى 3</div><div class="name">ذهبي</div><ul><li>مضاعف نقاط ×2</li><li>سبريد مخفض</li><li>هدايا شهرية</li></ul></div>
+      <div class="vip-card" style="--vc:#6fe3ff"><div class="tier">المستوى 4</div><div class="name">بلاتيني</div><ul><li>مضاعف نقاط ×3</li><li>دعم خاص 24/7</li><li>أحداث حصرية</li></ul></div>
+      <div class="vip-card" style="--vc:#9662ff"><div class="tier">المستوى 5</div><div class="name">ماس</div><ul><li>مضاعف نقاط ×5</li><li>رجل علاقات شخصي</li><li>مكافآت سنوية فاخرة</li></ul></div>
+    </div>
+
+    <h3 style="font-size:22px;font-weight:800;margin-bottom:8px" class="reveal">إنجازاتك تنتظرك</h3>
+    <p style="color:var(--muted);font-size:14.5px;margin-bottom:24px" class="reveal">عينة من إنجازات برنامج UMEX — 4 مستويات لكل إنجاز، ومكافآت متزايدة مع كل ترقية.</p>
+    <div class="ach-grid" id="achGrid">
+      <div class="ach-card reveal"><img src="assets/img/achievements/deal_maker_1.png" alt="صانع الصفقات"><div class="n">صانع الصفقات</div><div class="d">أكمل 50 صفقة</div></div>
+      <div class="ach-card reveal"><img src="assets/img/achievements/intraday_ninja_1.png" alt="نينجا اليوم"><div class="n">نينجا اليوم</div><div class="d">10 صفقات في يوم واحد</div></div>
+      <div class="ach-card reveal"><img src="assets/img/achievements/market_explorer_1.png" alt="مستكشف السوق"><div class="n">مستكشف السوق</div><div class="d">تداول 10 أصول مختلفة</div></div>
+      <div class="ach-card reveal"><img src="assets/img/achievements/revenue_ranger_1.png" alt="حارس الإيرادات"><div class="n">حارس الإيرادات</div><div class="d">ربح متواصل 5 أيام</div></div>
+      <div class="ach-card reveal"><img src="assets/img/achievements/day_2_day_master_1.png" alt="أسطورة اليوم ليوم"><div class="n">أسطورة اليوم ليوم</div><div class="d">تداول 30 يوماً متتالياً</div></div>
+      <div class="ach-card reveal"><img src="assets/img/achievements/streak_master_1.png" alt="سيد السلسلة"><div class="n">سيد السلسلة</div><div class="d">سلسلة 10 صفقات رابحة</div></div>
+      <div class="ach-card reveal"><img src="assets/img/achievements/victory_expert_1.png" alt="خبير الانتصارات"><div class="n">خبير الانتصارات</div><div class="d">100 صفقة رابحة</div></div>
+      <div class="ach-card reveal"><img src="assets/img/achievements/volume_mover_1.png" alt="محرك الحجم"><div class="n">محرك الحجم</div><div class="d">حجم تداول 100 ألف</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROMOS ===== -->
+<section id="promos">
+  <div class="container">
+    <span class="eyebrow reveal"><span class="dot"></span>عروض حصرية</span>
+    <h2 class="section-title reveal">عروض تمنحك بداية أقوى</h2>
+    <p class="section-sub reveal">استفد من عروض UMEX الحصرية وزد من قوة رصيدك من أول إيداع.</p>
+    <div class="promo-grid">
+      <div class="promo-card promo-mystery reveal">
+        <div>
+          <span class="tag">محدود الوقت</span>
+          <h3>صندوق المفاجآت Mystery Box</h3>
+          <p>أودع 50 دولاراً أو أكثر وافتح صندوق مفاجآت يحتوي على مكافآت تصل إلى 1000 دولار نقداً.</p>
+        </div>
+        <button class="btn btn-primary" style="width:fit-content;background:linear-gradient(135deg,#9662ff,#6a3bd6);box-shadow:0 6px 20px rgba(150,98,255,.4)">افتح صندوقك الآن</button>
+        <img class="art" src="assets/img/promo/mystery-box.svg" alt="Mystery Box">
+      </div>
+      <div class="promo-card promo-riskfree reveal">
+        <div>
+          <span class="tag">للمتداولين الجدد</span>
+          <h3>أول صفقة بدون مخاطرة Risk-Free</h3>
+          <p>صفقتك الأولى مضمونة: إذا خسرت، نسترد لك كامل المبلغ كرصيد تداول قابل للسحب بعد استيفاء الشروط.</p>
+        </div>
+        <button class="btn btn-primary" style="width:fit-content;background:linear-gradient(135deg,#13bf7d,#0d9a64);box-shadow:0 6px 20px rgba(19,191,125,.4)">اطلب حماية صفقتك</button>
+        <img class="art" src="assets/img/promo/risk-free.svg" alt="Risk-Free">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer id="footer">
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="#" class="brand"><img src="assets/img/logos/apple-touch-icon.png" alt="UMEX"><span>UMEX</span></a>
+        <p>منصة تداول متعددة الأصول مرخصة. تداول الأسهم والعملات والسلع والعملات الرقمية بمعايير أمان مصرفية.</p>
+      </div>
+      <div class="foot-col">
+        <h4>المنصة</h4>
+        <a href="#markets">الأسواق</a><a href="#features">المميزات</a><a href="#loyalty">برنامج الولاء</a><a href="#promos">العروض</a>
+      </div>
+      <div class="foot-col">
+        <h4>الدعم</h4>
+        <a href="#">مركز المساعدة</a><a href="#">الأسئلة الشائعة</a><a href="#">منصة التداول</a><a href="#">اتصل بنا</a>
+      </div>
+      <div class="foot-col">
+        <h4>قانوني</h4>
+        <a href="#">الشروط والأحكام</a><a href="#">سياسة الخصوصية</a><a href="#">إفصاح المخاطر</a><a href="#">AML / KYC</a>
+      </div>
+    </div>
+    <div class="foot-security">
+      <span style="color:var(--muted-3);font-size:13px;font-weight:600">مدفوعات آمنة عبر:</span>
+      <img src="assets/img/security/visa-secure.svg" alt="Visa Secure">
+      <img src="assets/img/security/mastercard-id-check.svg" alt="Mastercard ID Check">
+      <img src="assets/img/security/pci-dss.svg" alt="PCI DSS">
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 UMEX. جميع الحقوق محفوظة.</span>
+      <span>تداول الأدوات المالية ينطوي على مخاطر عالية وقد لا يناسب جميع المستثمرين.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<script>
+(function(){
+"use strict";
+
+/* ============ MARKET DATA ============ */
+var PAIRS = [
+  {sym:"EURUSD", cat:"forex", name:"يورو / دولار", price:1.0852, dec:4, chg:0.42},
+  {sym:"GBPUSD", cat:"forex", name:"جنيه / دولار", price:1.2715, dec:4, chg:-0.18},
+  {sym:"USDJPY", cat:"forex", name:"دولار / ين ياباني", price:149.84, dec:2, chg:0.67},
+  {sym:"AUDUSD", cat:"forex", name:"دولار أسترالي / دولار", price:0.6542, dec:4, chg:-0.31},
+  {sym:"USDCAD", cat:"forex", name:"دولار / دولار كندي", price:1.3621, dec:4, chg:0.12},
+  {sym:"EURSAR", cat:"forex", name:"يورو / ريال سعودي", price:4.0612, dec:4, chg:0.38},
+  {sym:"AAPL", cat:"stocks", name:"آبل", price:228.45, dec:2, chg:1.24},
+  {sym:"AMZN", cat:"stocks", name:"أمازون", price:186.32, dec:2, chg:-0.85},
+  {sym:"TSLA", cat:"stocks", name:"تسلا", price:248.70, dec:2, chg:2.15},
+  {sym:"NVDA", cat:"stocks", name:"إنفيديا", price:131.88, dec:2, chg:3.42},
+  {sym:"MSFT", cat:"stocks", name:"مايكروسوفت", price:428.15, dec:2, chg:0.76},
+  {sym:"SAUDI_ARAMCO", cat:"stocks", name:"أرامكو السعودية", price:33.45, dec:2, chg:0.55},
+  {sym:"BTCUSD", cat:"crypto", name:"بيتكوين / دولار", price:67420.50, dec:2, chg:2.34},
+  {sym:"XAUUSD", cat:"commodities", name:"الذهب / دولار", price:2342.60, dec:2, chg:0.89},
+  {sym:"COPPER", cat:"commodities", name:"النحاس", price:4.28, dec:3, chg:-0.44},
+  {sym:"UKOil", cat:"commodities", name:"نفط برنت", price:82.15, dec:2, chg:-1.12},
+  {sym:"NGAS_OTC_R", cat:"commodities", name:"الغاز الطبيعي", price:2.84, dec:3, chg:1.67},
+  {sym:"WHEAT_OTC_R", cat:"commodities", name:"القمح", price:5.92, dec:3, chg:-0.62}
+];
+
+/* seeded sparkline generator */
+function sparkData(seed, n, up){
+  var arr=[], v=50, s=seed*9301+49297;
+  for(var i=0;i<n;i++){
+    s=(s*9301+49297)%233280; var r=s/233280;
+    v += (r-0.45)*8 + (up?0.35:-0.35);
+    v=Math.max(8,Math.min(92,v));
+    arr.push(v);
+  }
+  return arr;
+}
+function sparkSVG(data, up, w, h){
+  var min=Math.min.apply(null,data), max=Math.max.apply(null,data), rng=(max-min)||1;
+  var pts=data.map(function(v,i){
+    var x=(i/(data.length-1))*w, y=h-((v-min)/rng)*(h-6)-3;
+    return x.toFixed(1)+","+y.toFixed(1);
+  }).join(" ");
+  var col=up?"#16d78d":"#ff7d80";
+  var area="M0,"+h+" L"+pts.replace(/ /g," L")+" L"+w+","+h+" Z";
+  return '<svg viewBox="0 0 '+w+' '+h+'" preserveAspectRatio="none" style="width:100%;height:100%">'+
+    '<path d="'+area+'" fill="'+col+'" opacity="0.12"/>'+
+    '<polyline points="'+pts+'" fill="none" stroke="'+col+'" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>'+
+    '</svg>';
+}
+function fmt(n,dec){return n.toLocaleString("en-US",{minimumFractionDigits:dec,maximumFractionDigits:dec});}
+
+/* build market cards */
+var grid=document.getElementById("marketGrid");
+PAIRS.forEach(function(p,i){
+  var up=p.chg>=0;
+  var data=sparkData(i+1,24,up);
+  var card=document.createElement("div");
+  card.className="pair-card reveal";
+  card.dataset.cat=p.cat;
+  card.dataset.sym=p.sym;
+  card.innerHTML=
+    '<div class="pair-top">'+
+      '<img src="assets/img/pairs/'+p.sym+'.png" alt="'+p.sym+'" loading="lazy" onerror="this.style.display=\'none\'">'+
+      '<div><div class="sym">'+p.sym+'</div><div class="cat">'+p.name+'</div></div>'+
+    '</div>'+
+    '<div class="pair-mid">'+
+      '<div class="pair-price"><div class="p num" data-price>'+fmt(p.price,p.dec)+'</div>'+
+      '<div class="chg num '+(up?"up":"down")+'" style="color:'+(up?"var(--green-2)":"var(--red-2)")+'">'+(up?"+":"")+p.chg.toFixed(2)+'%</div></div>'+
+      '<div class="spark">'+sparkSVG(data,up,110,40)+'</div>'+
+    '</div>';
+  grid.appendChild(card);
+  p._el=card; p._data=data; p._up=up;
+});
+
+/* tabs */
+var tabs=document.querySelectorAll(".tab-btn");
+tabs.forEach(function(t){
+  t.addEventListener("click",function(){
+    tabs.forEach(function(x){x.classList.remove("active")});
+    t.classList.add("active");
+    var cat=t.dataset.cat;
+    document.querySelectorAll(".pair-card").forEach(function(c){
+      c.style.display=(cat==="all"||c.dataset.cat===cat)?"flex":"none";
+    });
+  });
+});
+
+/* price ticking */
+setInterval(function(){
+  PAIRS.forEach(function(p){
+    var drift=(Math.random()-0.48)*0.004*p.price;
+    p.price=Math.max(0.0001,p.price+drift);
+    var el=p._el.querySelector("[data-price]");
+    if(el){el.textContent=fmt(p.price,p.dec);}
+    p._el.classList.remove("flash-up","flash-down");
+    void p._el.offsetWidth;
+    p._el.classList.add(drift>=0?"flash-up":"flash-down");
+  });
+  /* hero price */
+  var hp=document.getElementById("heroPrice");
+  if(hp){
+    var btc=PAIRS.find(function(x){return x.sym==="BTCUSD"});
+    if(btc) hp.textContent=fmt(btc.price,2);
+  }
+},1800);
+
+/* ============ COUNT-UP STATS ============ */
+function animateCount(el){
+  var target=parseFloat(el.dataset.count), prefix=el.dataset.prefix||"", suffix=el.dataset.suffix||"";
+  var dur=1600, start=null;
+  function step(ts){
+    if(!start)start=ts;
+    var p=Math.min(1,(ts-start)/dur);
+    var e=1-Math.pow(1-p,3);
+    var v=target*e;
+    var txt=target>=1000000? (v/1000000).toFixed(2)+"M" : target>=1000? Math.round(v).toLocaleString("en-US") : v.toFixed(target%1===0?0:1);
+    el.textContent=prefix+txt+suffix;
+    if(p<1)requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+/* ============ REVEAL ON SCROLL ============ */
+var io=new IntersectionObserver(function(entries){
+  entries.forEach(function(en){
+    if(en.isIntersecting){
+      en.target.classList.add("in");
+      if(en.target.classList.contains("v")&&en.target.dataset.count){animateCount(en.target);}
+      io.unobserve(en.target);
+    }
+  });
+},{threshold:0.15});
+document.querySelectorAll(".reveal, .stat-card .v").forEach(function(el){io.observe(el);});
+
+/* ============ MOBILE MENU ============ */
+var mt=document.getElementById("menuToggle"), nl=document.getElementById("navLinks");
+mt.addEventListener("click",function(){nl.classList.toggle("open");});
+nl.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){nl.classList.remove("open");});});
+
+/* ============ HERO CHART (ECharts with SVG fallback) ============ */
+var chartData=sparkData(7,60,true);
+var times=[]; for(var i=0;i<60;i++){times.push(i);}
+function drawFallback(){
+  var svg=document.getElementById("heroFallback");
+  if(!svg)return;
+  svg.style.display="block";
+  var hc=document.getElementById("heroChart"); if(hc)hc.style.display="none";
+  var min=Math.min.apply(null,chartData), max=Math.max.apply(null,chartData), rng=(max-min)||1;
+  var W=400,H=240;
+  var pts=chartData.map(function(v,i){
+    var x=(i/(chartData.length-1))*W, y=H-((v-min)/rng)*(H-20)-10;
+    return x.toFixed(1)+","+y.toFixed(1);
+  }).join(" ");
+  var area="M0,"+H+" L"+pts.replace(/ /g," L")+" L"+W+","+H+" Z";
+  svg.innerHTML='<defs><linearGradient id="hg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#35a7ff" stop-opacity=".35"/><stop offset="100%" stop-color="#35a7ff" stop-opacity="0"/></linearGradient></defs>'+
+    '<path d="'+area+'" fill="url(#hg)"/>'+
+    '<polyline points="'+pts+'" fill="none" stroke="#35a7ff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>';
+}
+function tryECharts(){
+  if(!window.echarts){drawFallback();return;}
+  try{
+    var el=document.getElementById("heroChart");
+    var fb=document.getElementById("heroFallback");
+    if(fb)fb.style.display="none";
+    el.style.display="block";
+    var chart=echarts.init(el);
+    chart.setOption({
+      grid:{left:8,right:8,top:10,bottom:8},
+      tooltip:{trigger:"axis",backgroundColor:"#202126",borderColor:"rgba(255,255,255,.16)",textStyle:{color:"#fff"}},
+      xAxis:{type:"category",show:false,data:times},
+      yAxis:{type:"value",scale:true,show:false},
+      series:[{
+        type:"line",data:chartData,smooth:true,symbol:"none",
+        lineStyle:{color:"#35a7ff",width:2.5},
+        areaStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:"rgba(53,167,255,.35)"},{offset:1,color:"rgba(53,167,255,0)"}])}
+      }]
+    });
+    window.addEventListener("resize",function(){chart.resize();});
+  }catch(e){drawFallback();}
+}
+if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",tryECharts);}else{tryECharts();}
+setTimeout(function(){if(!window.echarts)drawFallback();},2500);
+
+})();
+
+/* ============ GOLD LIVE WIDGET — BIQUOTE XAUUSD (with graceful simulated fallback) ============ */
+(function(){
+"use strict";
+var BASE="https://biquote.io/api";
+var SYMBOL="XAUUSD";
+var DIGITS=2;                       /* confirmed by GET /api/symbols/XAUUSD -> digits:2 */
+var ENDPOINTS=[
+  "/quote?symbol="+SYMBOL,
+  "/ticker?symbol="+SYMBOL,
+  "/price?symbol="+SYMBOL,
+  "/ticks?symbol="+SYMBOL,
+  "/market?symbol="+SYMBOL
+];
+var SIM_MIN=2600, SIM_MAX=3400, SIM_BASE=2984.50;   /* realistic gold band */
+var state={
+  mode:"sim",                       /* "sim" | "live" */
+  price:SIM_BASE,
+  open:SIM_BASE,
+  high:SIM_BASE,
+  low:SIM_BASE,
+  hist:[],
+  failCount:0,
+  liveTimer:null,
+  simTimer:null
+};
+/* seed spark history */
+(function(){var v=SIM_BASE;for(var i=0;i<40;i++){v+=(Math.random()-0.5)*1.5;v=Math.max(SIM_MIN,Math.min(SIM_MAX,v));state.hist.push(v);}state.price=v;state.high=Math.max.apply(null,state.hist);state.low=Math.min.apply(null,state.hist);state.open=state.hist[0];})();
+
+var elPrice=document.getElementById("goldPrice");
+var elChg=document.getElementById("goldChg");
+var elHigh=document.getElementById("goldHigh");
+var elLow=document.getElementById("goldLow");
+var elTime=document.getElementById("goldTime");
+var elBadge=document.getElementById("goldBadge");
+var elBadgeText=document.getElementById("goldBadgeText");
+var elSpark=document.getElementById("goldSpark");
+if(!elPrice)return;
+
+function fmt(n){return n.toLocaleString("en-US",{minimumFractionDigits:DIGITS,maximumFractionDigits:DIGITS});}
+function nowStr(){var d=new Date();return d.toLocaleTimeString("en-GB",{hour12:false});}
+
+function drawSpark(){
+  if(!elSpark)return;
+  var data=state.hist, W=220, H=64;
+  var min=Math.min.apply(null,data), max=Math.max.apply(null,data), rng=(max-min)||1;
+  var pts=data.map(function(v,i){
+    var x=(i/(data.length-1))*W, y=H-((v-min)/rng)*(H-10)-5;
+    return x.toFixed(1)+","+y.toFixed(1);
+  }).join(" ");
+  var up=state.price>=state.open;
+  var col=up?"#13bf7d":"#ff595c";
+  var area="M0,"+H+" L"+pts.replace(/ /g," L")+" L"+W+","+H+" Z";
+  elSpark.innerHTML=
+    '<defs><linearGradient id="gg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="'+col+'" stop-opacity=".30"/><stop offset="100%" stop-color="'+col+'" stop-opacity="0"/></linearGradient></defs>'+
+    '<path d="'+area+'" fill="url(#gg)"/>'+
+    '<polyline points="'+pts+'" fill="none" stroke="'+col+'" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>';
+}
+
+function setMode(m){
+  state.mode=m;
+  if(m==="live"){
+    elBadge.className="gold-badge live";
+    elBadgeText.textContent="مباشر — biquote.io";
+  }else{
+    elBadge.className="gold-badge sim";
+    elBadgeText.textContent="بيانات تجريبية — انتظار المصدر (اضغط لإعادة المحاولة)";
+  }
+}
+
+function updateUI(){
+  var up=state.price>=state.open;
+  var pct=state.open?((state.price-state.open)/state.open)*100:0;
+  elPrice.textContent=fmt(state.price);
+  elChg.textContent=(up?"+":"")+pct.toFixed(2)+"%";
+  elChg.className="gold-chg num "+(up?"up":"down");
+  elHigh.textContent=fmt(state.high);
+  elLow.textContent=fmt(state.low);
+  elTime.textContent=nowStr();
+  drawSpark();
+  /* sync the regular XAUUSD grid card if present */
+  var gridCard=document.querySelector('.pair-card[data-sym="XAUUSD"]');
+  if(gridCard){
+    var pe=gridCard.querySelector("[data-price]");
+    var ce=gridCard.querySelector(".chg");
+    if(pe)pe.textContent=fmt(state.price);
+    if(ce){ce.textContent=(up?"+":"")+pct.toFixed(2)+"%";ce.style.color=up?"var(--green-2)":"var(--red-2)";}
+  }
+}
+
+/* parse common fields from any endpoint payload */
+function parsePayload(o){
+  if(!o||typeof o!=="object")return null;
+  if(typeof o.message==="string"&&/no tick data|no data|not available/i.test(o.message))return null;
+  var d=o.data||o.quote||o.ticker||o.result||o;
+  if(d&&typeof d==="object"&&!(d.price!=null||d.last!=null||d.bid!=null||d.ask!=null||d.mid!=null||d.close!=null)){
+    /* maybe nested array */
+    if(Array.isArray(d)&&d.length)d=d[0];
+  }
+  var bid=parseFloat(d.bid), ask=parseFloat(d.ask);
+  var price=null;
+  [d.price,d.last,d.mid,d.close,d.lastPrice].forEach(function(v){var n=parseFloat(v);if(price===null&&isFinite(n))price=n;});
+  if(price===null&&isFinite(bid)&&isFinite(ask))price=(bid+ask)/2;
+  if(price===null||!isFinite(price)||price<=0)return null;
+  var chgPct=null;
+  [d.changePercent,d.change_pct,d.percentChange,d.pctChange,d.chgPct].forEach(function(v){var n=parseFloat(v);if(chgPct===null&&isFinite(n))chgPct=n;});
+  if(chgPct===null&&d.change!=null&&price){var c=parseFloat(d.change);if(isFinite(c)&&price)chgPct=(c/price)*100;}
+  var high=parseFloat(d.high), low=parseFloat(d.low);
+  return {price:price,chgPct:chgPct,high:isFinite(high)?high:null,low:isFinite(low)?low:null,ts:d.timestamp||d.time||null};
+}
+
+function fetchJSON(url){
+  return new Promise(function(resolve){
+    var ctrl=new AbortController();
+    var to=setTimeout(function(){ctrl.abort();},4500);
+    fetch(url,{signal:ctrl.signal,cache:"no-store"})
+      .then(function(r){clearTimeout(to);return r.json();})
+      .then(function(j){resolve(j);})
+      .catch(function(){clearTimeout(to);resolve(null);});
+  });
+}
+
+function tryLive(){
+  var i=0;
+  function next(){
+    if(i>=ENDPOINTS.length){return Promise.resolve(null);}
+    var url=BASE+ENDPOINTS[i++];
+    return fetchJSON(url).then(function(j){
+      var p=parsePayload(j);
+      if(p)return p;
+      return next();
+    });
+  }
+  return next();
+}
+
+function applyLive(p){
+  stopSim();
+  state.price=p.price;
+  if(p.chgPct!==null){
+    /* derive open from price and changePercent so % display matches source */
+    state.open=state.price/(1+p.chgPct/100);
+  }
+  if(p.high!==null)state.high=Math.max(state.high,p.high); else state.high=Math.max(state.high,state.price);
+  if(p.low!==null)state.low=Math.min(state.low,p.low); else state.low=Math.min(state.low,state.price);
+  state.hist.push(state.price); if(state.hist.length>48)state.hist.shift();
+  setMode("live");
+  state.failCount=0;
+  updateUI();
+}
+
+function livePoll(){
+  tryLive().then(function(p){
+    if(p){applyLive(p);}
+    else{
+      state.failCount++;
+      if(state.failCount>=3){setMode("sim");startSim();}
+    }
+  });
+}
+
+function simStep(){
+  /* mean-reverting random walk, tickSize 0.01, kept inside realistic band */
+  var mid=(SIM_MIN+SIM_MAX)/2;
+  var pull=(mid-state.price)*0.004;
+  var step=(Math.random()-0.5)*0.12+pull;
+  step=Math.round(step*100)/100;               /* tickSize 0.01 */
+  state.price=Math.max(SIM_MIN,Math.min(SIM_MAX,state.price+step));
+  state.high=Math.max(state.high,state.price);
+  state.low=Math.min(state.low,state.price);
+  state.hist.push(state.price); if(state.hist.length>48)state.hist.shift();
+  updateUI();
+}
+
+function startSim(){
+  if(state.simTimer)return;
+  setMode("sim");
+  state.simTimer=setInterval(simStep,1400);
+}
+function stopSim(){if(state.simTimer){clearInterval(state.simTimer);state.simTimer=null;}}
+
+/* badge click: force retry of live source */
+elBadge.addEventListener("click",function(){
+  state.failCount=0;
+  tryLive().then(function(p){
+    if(p){stopSim();applyLive(p);if(!state.liveTimer)state.liveTimer=setInterval(livePoll,5000);}
+    else{startSim();}
+  });
+});
+
+/* boot: try live once; if unavailable, run simulated stream */
+updateUI();
+tryLive().then(function(p){
+  if(p){
+    applyLive(p);
+    state.liveTimer=setInterval(livePoll,5000);
+  }else{
+    startSim();
+    state.liveTimer=setInterval(function(){   /* keep retrying in background every 30s */
+      if(state.mode!=="live"){tryLive().then(function(pp){if(pp){applyLive(pp);}});}
+    },30000);
+  }
+});
+
+/* optional: fetch symbol metadata once to confirm digits/description (non-blocking) */
+fetchJSON(BASE+"/symbols/"+SYMBOL).then(function(m){
+  if(m&&typeof m==="object"){
+    if(typeof m.digits==="number")DIGITS=m.digits;
+    var ds=document.querySelector("#goldFeature .ds");
+    if(ds&&m.description)ds.textContent="سلع · "+(m.exchange||"OTC")+" · "+m.description+" · دقة "+DIGITS+" · "+(m.currency||"USD");
+  }
+});
+
+})();
+</script>
+</body>
+</html>
